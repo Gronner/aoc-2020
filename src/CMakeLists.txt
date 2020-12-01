@@ -4,7 +4,8 @@ set(CMAKE_CXX_FLAGS "-std=c++17")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic -Werror")
 
 set(SOURCES
-    main.cpp)
+    main.cpp
+    day1.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})
