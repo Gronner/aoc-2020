@@ -5,7 +5,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wpedantic -Werror")
 
 set(SOURCES
     main.cpp
-    day1.cpp)
+    aoc_input.cpp
+    day1.cpp
+    day2.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})

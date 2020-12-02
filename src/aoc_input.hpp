@@ -1,8 +1,8 @@
 #pragma once
 
-
 #include <stdexcept>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -16,10 +16,8 @@ std::vector<T> read_input(std::string file_location) {
     while( input_data >> tmp) {
         input.push_back(tmp);
     }
-    if(input_data.fail()) {
-        throw std::invalid_argument("Input does not match data type");
-    }
     return input;
 }
 
+std::vector<std::string> read_input_linewise(std::string file_location);
 }
