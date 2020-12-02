@@ -1,9 +1,7 @@
 #include "day2.hpp"
 
-#include <regex>
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include "aoc_input.hpp"
 #include "parsing.hpp"
