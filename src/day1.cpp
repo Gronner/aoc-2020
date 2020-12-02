@@ -3,7 +3,7 @@
 #include "aoc_input.hpp"
 
 void day1() {
-    auto input_data = aoc::read_input<unsigned int>("../data/day1.txt");
+    auto input_data = aoc::read_input_tokenwise<unsigned int>("../data/day1.txt");
     for(auto val1: input_data) {
         for(auto val2: input_data) {
             for(auto val3: input_data) {
