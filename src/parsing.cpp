@@ -1,7 +1,7 @@
 #include "parsing.hpp"
 
-std::vector<std::string> aoc::grab_information(std::string input, std::string expression) {
-    std::regex reg_ex(expression);
+const std::vector<std::string> aoc::grab_information(const std::string input, const std::string expression) {
+    const std::regex reg_ex(expression);
     std::smatch matcher;
     std::regex_match(input, matcher, reg_ex);
     

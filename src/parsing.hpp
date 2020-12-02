@@ -5,6 +5,6 @@
 #include <vector>
 
 namespace aoc {
-std::vector<std::string> grab_information(std::string input, std::string expression);
+const std::vector<std::string> grab_information(const std::string input, const std::string expression);
 }
 

@@ -9,7 +9,7 @@
 namespace aoc {
 
 template <typename T>
-std::vector<T> read_input_tokenwise(std::string file_location) {
+std::vector<T> read_input_tokenwise(const std::string file_location) {
     std::ifstream input_data(file_location);
     std::vector<T> input;
     T tmp;
@@ -19,5 +19,5 @@ std::vector<T> read_input_tokenwise(std::string file_location) {
     return input;
 }
 
-std::vector<std::string> read_input_linewise(std::string file_location);
+std::vector<std::string> read_input_linewise(const std::string file_location);
 }

@@ -7,19 +7,20 @@
 #include "parsing.hpp"
 
 void day2() {
-    auto input = aoc::read_input_linewise("");
+    const auto input = aoc::read_input_linewise("");
 
     unsigned int found_matches = 0;
 
     for(auto pwpol: input) {
-        std::string expression = "(\\d*)-(\\d*) ([a-z]): (\\w*)";
-        auto matched_information = aoc::grab_information(pwpol, expression);
+        const std::string expression = "(\\d*)-(\\d*) ([a-z]): (\\w*)";
+        const auto matched_information = aoc::grab_information(pwpol, expression);
 
-        int position1 = std::stoi(matched_information[1]) - 1;
-        int position2 = std::stoi(matched_information[2]) - 1;
-        std::string password = matched_information[4];
+        const int position1 = std::stoi(matched_information[1]) - 1;
+        const int position2 = std::stoi(matched_information[2]) - 1;
+        const char symbol = matched_information[3].at(0);
+        const std::string password = matched_information[4];
 
-        if((matched_information[3].at(0) == password[position1]) ||  (matched_information[3].at(0) == password[position2])) {
+        if((symbol == password[position1]) || (symbol == password[position2])) {
             if (password[position1] != password[position2]) {
                 found_matches++;
             }
