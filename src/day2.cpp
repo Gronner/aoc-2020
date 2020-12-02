@@ -13,22 +13,18 @@ void day2() {
 
     for(auto pwpol: input) {
         std::regex policy_reg("(\\d*)-(\\d*) ([a-z]): (\\w*)");
-        std::smatch m;
-        std::regex_match(pwpol, m, policy_reg);
+        std::smatch matcher;
+        std::regex_match(pwpol, matcher, policy_reg);
         
-        int min_occurence = std::stoi(m[1]);
-        int max_occurence = std::stoi(m[2]);
-        std::string password = m[4];
+        int position1 = std::stoi(matcher[1]) - 1;
+        int position2 = std::stoi(matcher[2]) - 1;
+        std::string password = matcher[4];
+        std::cout << position1 << " " << position2 << " " << matcher[3] << " " << password[position1] << password[position2] << std::endl;
 
-        int counter = 0;
-        for(auto c: password) {
-            if(c == m[3]) {
-                counter++;
+        if((matcher[3] == password[position1]) ||  (matcher[3] == password[position2])) {
+            if (password[position1] != password[position2]) {
+                found_matches++;
             }
-        }
-        
-        if(counter >= min_occurence && counter <= max_occurence) {
-            found_matches++;
         }
     }
 
