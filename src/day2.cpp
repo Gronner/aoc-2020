@@ -1,4 +1,4 @@
-#include "day2.hpp"
+#include "days.hpp"
 
 #include <iostream>
 #include <string>

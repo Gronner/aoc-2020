@@ -1,3 +1,5 @@
+#include "days.hpp"
+
 #include <iostream>
 
 #include "aoc_input.hpp"
