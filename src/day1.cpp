@@ -1,20 +1,19 @@
 #include "days.hpp"
 
 #include <iostream>
+#include <vector>
 
 #include "aoc_input.hpp"
 
-void day1() {
-    auto input_data = aoc::read_input_tokenwise<unsigned int>("../data/day1.txt");
+unsigned int expense_report(std::vector<unsigned int> input_data) {
     for(auto val1: input_data) {
         for(auto val2: input_data) {
             for(auto val3: input_data) {
                 if(2020 == (val1 + val2 + val3)) {
-                    std::cout << val1 << " " << val2 << " " << val3 << std::endl;
-                    std::cout << val1 * val2 * val3 << std::endl;
-                    return;
+                    return val1 * val2 * val3;
                 }
             }
         }
     }
+    return 0;
 }
