@@ -8,7 +8,8 @@ set(SOURCES
     aoc_input.cpp
     parsing.cpp
     day1.cpp
-    day2.cpp)
+    day2.cpp
+    day3.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})
