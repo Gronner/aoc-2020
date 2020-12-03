@@ -2,7 +2,8 @@ set(BINARY ${CMAKE_PROJECT_NAME}_test)
 
 set(TEST_SOURCES
     main_test.cpp
-    day1_tests.cpp)
+    day1_tests.cpp
+    day2_tests.cpp)
 
 set(SOURCES ${TEST_SOURCES})
 
