@@ -1,7 +1,8 @@
 #pragma once
 
-#include<vector>
+#include <string>
+#include <vector>
 
 unsigned int expense_report(std::vector<unsigned int> input_data);
-void day2();
+unsigned int passwort_policy_matches(std::vector<std::string> input_data);
 void day3();

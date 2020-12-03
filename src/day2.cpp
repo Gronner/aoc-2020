@@ -1,17 +1,14 @@
 #include "days.hpp"
 
 #include <iostream>
-#include <string>
 
 #include "aoc_input.hpp"
 #include "parsing.hpp"
 
-void day2() {
-    const auto input = aoc::read_input_linewise("");
-
+unsigned int passwort_policy_matches(std::vector<std::string> input_data) {
     unsigned int found_matches = 0;
 
-    for(auto pwpol: input) {
+    for(auto pwpol: input_data) {
         const std::string expression = "(\\d*)-(\\d*) ([a-z]): (\\w*)";
         const auto matched_information = aoc::grab_information(pwpol, expression);
 
@@ -26,6 +23,5 @@ void day2() {
             }
         }
     }
-
-    std::cout << found_matches << std::endl;
+    return found_matches;
 }

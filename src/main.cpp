@@ -10,9 +10,14 @@ static void day1() {
     std::cout << expense_report(input_data) << std::endl;
 }
 
+static void day2() {
+    auto input_data = aoc::read_input_linewise(day2_data);
+    std::cout << passwort_policy_matches(input_data) << std::endl;
+}
+
 int main() {
     day1();
-    //day2();
+    day2();
     //day3();
     return 0;
 }
