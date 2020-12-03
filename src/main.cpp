@@ -15,9 +15,14 @@ static void day2() {
     std::cout << passwort_policy_matches(input_data) << std::endl;
 }
 
+static void day3() {
+    auto input_data = aoc::read_input_linewise(day3_data);
+    std::cout << sleeding(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
-    //day3();
+    day3();
     return 0;
 }

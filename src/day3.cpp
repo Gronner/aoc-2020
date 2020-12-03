@@ -4,12 +4,10 @@
 
 #include "aoc_input.hpp"
 
-void day3() {
+unsigned int sleeding(std::vector<std::string> input_data) {
     constexpr int speed_sets[5][2] = {{1, 1}, {3, 1}, {5, 1}, {7, 1}, {1, 2}};
-    const auto input_lines = aoc::read_input_linewise("");
-    const auto hill_height = input_lines.size() - 1;
-    const auto hill_part_width = input_lines[0].length();
-    std::cout << hill_part_width << std::endl;
+    const auto hill_height = input_data.size() - 1;
+    const auto hill_part_width = input_data[0].length();
 
     unsigned int total_tree_count = 0;
     for(auto& speed_set: speed_sets) {
@@ -21,7 +19,7 @@ void day3() {
 
         unsigned int tree_counter = 0;
         while(position_down <= hill_height) {
-            if(input_lines[position_down].at(position_right) == '#') {
+            if(input_data[position_down].at(position_right) == '#') {
                 tree_counter++;
             }
             position_down += speed_down;
@@ -29,7 +27,6 @@ void day3() {
             position_right %= hill_part_width;
         }
 
-        std::cout << tree_counter << std::endl;
         if(total_tree_count == 0) {
             total_tree_count += tree_counter;
         } else {
@@ -37,5 +34,5 @@ void day3() {
         }
     }
 
-    std::cout << total_tree_count << std::endl;
+    return total_tree_count;
 }
