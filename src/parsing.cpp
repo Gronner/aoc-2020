@@ -13,3 +13,8 @@ const std::vector<std::string> aoc::grab_information(const std::string input, co
     return informations;
 }
 
+const bool aoc::matches(const std::string input, const std::string expression) {
+    const std::regex reg_ex(expression);
+    std::smatch matcher;
+    return std::regex_match(input, matcher, reg_ex);
+}

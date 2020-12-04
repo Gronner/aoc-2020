@@ -7,6 +7,7 @@
 
 #include "helpers.hpp"
 #include "parsing.hpp"
+#include "rules.hpp"
 
 Passport::Passport(
         std::string birth_year,
@@ -21,25 +22,25 @@ Passport::Passport(
             eye_color(eye_color), passport_id(passport_id), country_id(country_id) {}
 
 bool Passport::is_valid() {
-    if(0 == birth_year.size()) {
+    if(0 == birth_year.size() || !birth_year_is_valid(birth_year)) {
         return false;
     }
-    if(0 == issue_year.size()) {
+    if(0 == issue_year.size() || !issue_year_is_valid(issue_year)) {
         return false;
     }
-    if(0 == expiration_year.size()) {
+    if(0 == expiration_year.size() || !expiration_year_is_valid(expiration_year)) {
         return false;
     }
-    if(0 == height.size()) {
+    if(0 == height.size() || !height_is_valid(height)) {
         return false;
     }
-    if(0 == hair_color.size()) {
+    if(0 == hair_color.size() || !hair_color_is_valid(hair_color)) {
         return false;
     }
-    if(0 == eye_color.size()) {
+    if(0 == eye_color.size() || !eye_color_is_valid(eye_color)) {
         return false;
     }
-    if(0 == passport_id.size()) {
+    if(0 == passport_id.size() || !passport_id_is_valid(passport_id)) {
         return false;
     }
     return true;

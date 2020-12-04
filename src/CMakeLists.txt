@@ -11,6 +11,7 @@ set(SOURCES
     day2.cpp
     day3.cpp
     day4/passport.cpp
+    day4/rules.cpp
     day4/day4.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
