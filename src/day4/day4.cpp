@@ -1,8 +1,6 @@
 #include "days.hpp"
 
-#include <iostream>
-
-#include "passport.hpp"
+#include "day4/passport.hpp"
 
 static auto normalize_passport_layout(const std::vector<std::string> input_data) {
     std::vector<std::string> normalized_passports;
