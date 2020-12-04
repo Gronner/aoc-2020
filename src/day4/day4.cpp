@@ -24,7 +24,6 @@ unsigned int check_valid_passports(const std::vector<std::string> input_data) {
         auto passport_tmp = Passport::from_string(passport);
         if(passport_tmp.is_valid()) {
             valid_count++;
-        } else {
         }
     }
     return valid_count;
