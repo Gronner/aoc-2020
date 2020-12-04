@@ -9,7 +9,9 @@ set(SOURCES
     parsing.cpp
     day1.cpp
     day2.cpp
-    day3.cpp)
+    day3.cpp
+    passport.cpp
+    day4.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})
