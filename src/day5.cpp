@@ -37,7 +37,7 @@ static unsigned int identify_seat_id(const std::string boarding_pass, const Plan
     return column + 8 * row;
 }
 
-static unsigned int identify_empty_seat(std::vector<int> taken_seats) {
+static unsigned int identify_empty_seat(std::vector<unsigned int> taken_seats) {
     std::sort(taken_seats.begin(), taken_seats.end());
     for(size_t i = 1; i < taken_seats.size(); i++) {
         if(taken_seats[i-1] + 2 == taken_seats[i]) {
@@ -50,10 +50,27 @@ static unsigned int identify_empty_seat(std::vector<int> taken_seats) {
 unsigned int binary_seat_search(const std::vector<std::string> input_data) {
     constexpr PlaneLayout santas_plane = {.row_path_len=7, .column_path_len=3};
 
-    std::vector<int> found_seats;
+    std::vector<unsigned int> found_seats;
     for(auto boarding_pass: input_data) {
         found_seats.push_back(identify_seat_id(boarding_pass, santas_plane));
     }
 
     return identify_empty_seat(found_seats);
+}
+
+// Alternative solution, inspired by others
+
+static unsigned int pass_to_number(std::string& pass) {
+    std::replace(pass.begin(), pass.end(), 'F', '0');
+    std::replace(pass.begin(), pass.end(), 'B', '1');
+    std::replace(pass.begin(), pass.end(), 'L', '0');
+    std::replace(pass.begin(), pass.end(), 'R', '1');
+    return std::stoi(pass, 0, 2);
+}
+
+
+unsigned int alternative_seat_search(std::vector<std::string> input_data) {
+    std::vector<unsigned int> seats;
+    std::transform(input_data.begin(), input_data.end(), std::back_inserter(seats), pass_to_number);
+    return identify_empty_seat(seats);
 }

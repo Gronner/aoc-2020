@@ -17,3 +17,8 @@ TEST(Day5Test, RiddleInput) {
     auto input_data = aoc::read_input_linewise(day5_data);
     ASSERT_EQ(524, binary_seat_search(input_data));
 }
+
+TEST(Day5Test, RiddleInputAlternative) {
+    auto input_data = aoc::read_input_linewise(day5_data);
+    ASSERT_EQ(524, alternative_seat_search(input_data));
+}
