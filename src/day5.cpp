@@ -6,6 +6,19 @@
 
 #include <iostream>
 
+static unsigned int follow_binary_path(std::string path, char upper_letter, unsigned int starting_value) {
+    unsigned int current_value = 0;
+    unsigned int current_step = starting_value;
+
+    for(auto letter: path) {
+        current_step /= 2;
+        if(letter == upper_letter) {
+            current_value += current_step;
+        }
+    }
+    return current_value;
+}
+
 unsigned int binary_set_search(const std::vector<std::string> input_data) {
     std::vector<int> found_seats;
 
@@ -13,29 +26,9 @@ unsigned int binary_set_search(const std::vector<std::string> input_data) {
         auto row_description = boarding_pass.substr(0,7);
         auto column_description = boarding_pass.substr(7,3);
 
-        unsigned int current_row = 0;
-        size_t current_step = 128;
+        const int row = follow_binary_path(row_description, 'B', 128);
+        const int column = follow_binary_path(column_description, 'R', 8);
 
-        for(auto letter: row_description) {
-            current_step /= 2;
-            if(letter == 'B') {
-                current_row += current_step;
-            } 
-        }
-        const int row = current_row;
-
-        std::vector<int> columns(8);
-        std::iota(std::begin(columns), std::end(columns), 0);
-        unsigned int current_column = 0;
-        current_step = 8;
-
-        for(auto letter: column_description) {
-            current_step /= 2;
-            if(letter == 'R') {
-                current_column += current_step;
-            }
-        }
-        const int column = current_column;
         found_seats.push_back(column + 8 * row);
     }
 
