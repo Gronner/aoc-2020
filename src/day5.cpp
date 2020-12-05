@@ -13,33 +13,29 @@ unsigned int binary_set_search(const std::vector<std::string> input_data) {
         auto row_description = boarding_pass.substr(0,7);
         auto column_description = boarding_pass.substr(7,3);
 
-        std::vector<int> rows(128);
-        std::iota(std::begin(rows), std::end(rows), 0);
-        size_t current_row = 128;
+        unsigned int current_row = 0;
+        size_t current_step = 128;
 
         for(auto letter: row_description) {
-            current_row /= 2;
-            if(letter == 'F') {
-                rows = std::vector<int>(rows.begin(), rows.end() - current_row);
-            } else {
-                rows = std::vector<int>(rows.begin() + current_row, rows.end());
-            }
+            current_step /= 2;
+            if(letter == 'B') {
+                current_row += current_step;
+            } 
         }
-        const int row = rows[0];
+        const int row = current_row;
 
         std::vector<int> columns(8);
         std::iota(std::begin(columns), std::end(columns), 0);
-        size_t current_column = 8;
+        unsigned int current_column = 0;
+        current_step = 8;
 
         for(auto letter: column_description) {
-            current_column /= 2;
-            if(letter == 'L') {
-                columns = std::vector<int>(columns.begin(), columns.end() - current_column);
-            } else {
-                columns = std::vector<int>(columns.begin() + current_column, columns.end());
+            current_step /= 2;
+            if(letter == 'R') {
+                current_column += current_step;
             }
         }
-        const int column = columns[0];
+        const int column = current_column;
         found_seats.push_back(column + 8 * row);
     }
 
