@@ -1,7 +1,6 @@
 #include "days.hpp"
 
 #include <algorithm>
-#include <numeric>
 #include <vector>
 
 #include <iostream>
