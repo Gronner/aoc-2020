@@ -1,6 +1,7 @@
 #include "days.hpp"
 
 #include <algorithm>
+#include <map>
 #include <vector>
 
 #include <iostream>
@@ -58,9 +59,25 @@ unsigned int binary_seat_search(const std::vector<std::string> input_data) {
     return identify_empty_seat(found_seats);
 }
 
-// Alternative solution, inspired by others
-
+/*
+Alternative solution, inspired by others, it's only faster than the solution
+above if optimizations are turned off. Otherwise binary_seat_search is twice as
+fast. Using the std::map with replace is even 3 times slower than binary_seat_search
+*/
 static unsigned int pass_to_number(std::string& pass) {
+    /*
+    char r;
+    std::map<char, char> replacement_chars = {
+        {'F', '0'},
+        {'B', '1'},
+        {'L', '0'},
+        {'R', '1'}};
+    std::replace_if(pass.begin(),
+            pass.end(),
+            [&](char c){return r = replacement_chars[c];},
+            r);
+    */
+
     std::replace(pass.begin(), pass.end(), 'F', '0');
     std::replace(pass.begin(), pass.end(), 'B', '1');
     std::replace(pass.begin(), pass.end(), 'L', '0');
