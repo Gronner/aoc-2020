@@ -27,7 +27,7 @@ static void day4() {
 
 static void day5() {
     auto input_data = aoc::read_input_linewise(day5_data);
-    std::cout << "Day5: " << binary_set_search(input_data) << std::endl;
+    std::cout << "Day5: " << binary_seat_search(input_data) << std::endl;
 }
 
 int main() {

@@ -15,5 +15,5 @@ TEST(Day5Test, SampleInput) {
 
 TEST(Day5Test, RiddleInput) {
     auto input_data = aoc::read_input_linewise(day5_data);
-    ASSERT_EQ(524, binary_set_search(input_data));
+    ASSERT_EQ(524, binary_seat_search(input_data));
 }
