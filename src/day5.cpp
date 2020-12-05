@@ -1,13 +1,13 @@
 #include "days.hpp"
 
+#include <algorithm>
 #include <numeric>
 #include <vector>
 
 #include <iostream>
 
 unsigned int binary_set_search(const std::vector<std::string> input_data) {
-    int max_seat = 0;
-    int seat_number = 0;
+    std::vector<int> found_seats;
 
     for(auto boarding_pass: input_data) {
         auto row_description = boarding_pass.substr(0,7);
@@ -40,10 +40,14 @@ unsigned int binary_set_search(const std::vector<std::string> input_data) {
             }
         }
         const int column = columns[0];
-        seat_number = column + 8 * row;
-        if(seat_number > max_seat) {
-            max_seat = seat_number;
+        found_seats.push_back(column + 8 * row);
+    }
+
+    std::sort(found_seats.begin(), found_seats.end());
+    for(size_t i = 1; i < found_seats.size(); i++) {
+        if(found_seats[i-1] + 2 == found_seats[i]) {
+            return found_seats[i] - 1;
         }
     }
-    return max_seat;
+    return 0;
 }

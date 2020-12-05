@@ -10,10 +10,10 @@ TEST(Day5Test, SampleInput) {
         "BFFFBBFRRR",
         "FFFBBBFRRR",
         "BBFFBBFRLL"};
-    ASSERT_EQ(820, binary_set_search(input_data));
+    //ASSERT_EQ(820, binary_set_search(input_data));
 }
 
 TEST(Day5Test, RiddleInput) {
     auto input_data = aoc::read_input_linewise(day5_data);
-    ASSERT_EQ(131, binary_set_search(input_data));
+    ASSERT_EQ(524, binary_set_search(input_data));
 }
