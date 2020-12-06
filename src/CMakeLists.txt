@@ -13,7 +13,8 @@ set(SOURCES
     day4/passport.cpp
     day4/rules.cpp
     day4/day4.cpp
-    day5.cpp)
+    day5.cpp
+    day6.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})

@@ -30,11 +30,17 @@ static void day5() {
     std::cout << "Day5: " << binary_seat_search(input_data) << std::endl;
 }
 
+static void day6() {
+    auto input_data = aoc::read_input_linewise(day6_data);
+    std::cout << "Day6: " << count_customs_answers(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
     day3();
     day4();
     day5();
+    day6();
     return 0;
 }
