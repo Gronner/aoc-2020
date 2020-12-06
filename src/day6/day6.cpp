@@ -25,11 +25,11 @@ static auto retrieve_tarvel_groups(const std::vector<std::string> input_data) {
     return travel_groups;
 }
 
-unsigned int count_customs_answers(std::vector<std::string> input_data) {
-    auto travel_groups  = retrieve_tarvel_groups(input_data);
+unsigned int count_customs_answers(const std::vector<std::string> input_data) {
+    const auto travel_groups  = retrieve_tarvel_groups(input_data);
     unsigned int answer_count = 0;
 
-    for(auto travel_group: travel_groups) {
+    for(const auto travel_group: travel_groups) {
         answer_count += travel_group.get_common_answers();
     }
     return answer_count;

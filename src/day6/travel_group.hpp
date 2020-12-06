@@ -4,10 +4,10 @@
 
 class TravelGroup {
     private:
-        unsigned int member_count;
-        std::string answers;
+        const unsigned int member_count;
+        const std::string answers;
     public:
-        TravelGroup(unsigned int member_count, std::string answers);
-        unsigned int get_unique_answers();
-        unsigned int get_common_answers();
+        TravelGroup(const unsigned int member_count, const std::string answers);
+        unsigned int get_unique_answers() const;
+        unsigned int get_common_answers() const;
 };
