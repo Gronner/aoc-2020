@@ -4,10 +4,10 @@
 
 class BagType {
 private:
-    std::string bag_color;
-    unsigned int capacity;
+    const std::string bag_color;
+    const unsigned int capacity;
 public:
     BagType(std::string bag_color, unsigned int capacity);
-    std::string get_bag_color();
-    unsigned int get_capacity();
+    std::string get_bag_color() const;
+    unsigned int get_capacity() const;
 };

@@ -1,6 +1,6 @@
 #include "parsing.hpp"
 
-const std::vector<std::string> aoc::grab_information(const std::string input, const std::string expression) {
+std::vector<std::string> aoc::grab_information(const std::string input, const std::string expression) {
     const std::regex reg_ex(expression);
     std::smatch matcher;
     std::regex_match(input, matcher, reg_ex);
@@ -13,13 +13,13 @@ const std::vector<std::string> aoc::grab_information(const std::string input, co
     return informations;
 }
 
-const bool aoc::matches(const std::string input, const std::string expression) {
+bool aoc::matches(const std::string input, const std::string expression) {
     const std::regex reg_ex(expression);
     std::smatch matcher;
     return std::regex_match(input, matcher, reg_ex);
 }
 
-const std::vector<std::string> aoc::split_on_delimiter(const std::string input, const std::string delimiter) {
+std::vector<std::string> aoc::split_on_delimiter(const std::string input, const std::string delimiter) {
     size_t pos = 0;
     size_t last_pos = 0;
     std::string token;
