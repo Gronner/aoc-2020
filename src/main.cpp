@@ -35,6 +35,11 @@ static void day6() {
     std::cout << "Day6: " << count_customs_answers(input_data) << std::endl;
 }
 
+static void day7() {
+    auto input_data = aoc::read_input_linewise(day7_data);
+    std::cout << "Day7: " << unpack_bags(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -42,5 +47,6 @@ int main() {
     day4();
     day5();
     day6();
+    day7();
     return 0;
 }
