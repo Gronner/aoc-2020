@@ -40,6 +40,11 @@ static void day7() {
     std::cout << "Day7: " << unpack_bags(input_data) << std::endl;
 }
 
+static void day8() {
+    auto input_data = aoc::read_input_linewise(day8_data);
+    std::cout << "Day8: " << boot_sequence(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -48,5 +53,6 @@ int main() {
     day5();
     day6();
     day7();
+    day8();
     return 0;
 }

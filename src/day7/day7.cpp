@@ -32,9 +32,9 @@ static void build_map(const std::string input_line, BagTypeMap& bag_map) {
 
 static unsigned int search_through_map(const std::string current_bag, const std::map<std::string, bool>& visited, const BagTypeMap bag_map) {
     unsigned int bag_count = 1;
-    const auto range = bag_map.equal_range(current_bag);
-    for(auto i = range.first; i != range.second; ++i ) {
-        bag_count += i->second.get_capacity() * search_through_map(i->second.get_bag_color(), visited, bag_map);
+    const auto bag_pairs= bag_map.equal_range(current_bag);
+    for(auto bag_pair = bag_pairs.first; bag_pair != bag_pairs.second; ++bag_pair ) {
+        bag_count += bag_pair->second.get_capacity() * search_through_map(bag_pair->second.get_bag_color(), visited, bag_map);
     }
     return bag_count;
 }
