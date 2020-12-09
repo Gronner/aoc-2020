@@ -1,6 +1,6 @@
 #include "days.hpp"
 
-#include <iostream>
+#include <algorithm>
 #include <numeric>
 
 static bool sum_of_parts(unsigned long long current_value, std::vector<unsigned long long> ring_puffer) {
@@ -70,7 +70,6 @@ unsigned long long xmas_breaker_part2(std::vector<std::string> input_data, unsig
     do {
         sum = get_sum(sliding_window_size, values, encryption_cipher);
         sliding_window_size++;
-        std::cout << sliding_window_size << std::endl;
     } while((0 == sum) && (sliding_window_size <= values.size()));
 
     return sum;
