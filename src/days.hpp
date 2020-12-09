@@ -12,4 +12,4 @@ unsigned int alternative_seat_search(std::vector<std::string> input_data);
 unsigned int count_customs_answers(std::vector<std::string> input_data);
 unsigned int unpack_bags(std::vector<std::string> input_data);
 int boot_sequence(std::vector<std::string> input_data);
-unsigned long long xmas_breaker_part2(std::vector<std::string> input_data, unsigned int ring_length);
+uint64_t xmas_breaker_part2(std::vector<std::string> input_data, uint32_t ring_length);
