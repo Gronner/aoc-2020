@@ -10,7 +10,8 @@ set(TEST_SOURCES
     day6_tests.cpp
     day7_tests.cpp
     day8_tests.cpp
-    day9_tests.cpp)
+    day9_tests.cpp
+    day10_tests.cpp)
 
 set(SOURCES ${TEST_SOURCES})
 
