@@ -13,4 +13,4 @@ unsigned int count_customs_answers(std::vector<std::string> input_data);
 unsigned int unpack_bags(std::vector<std::string> input_data);
 int boot_sequence(std::vector<std::string> input_data);
 uint64_t xmas_breaker_part2(std::vector<std::string> input_data, uint32_t ring_length);
-unsigned long long adapter_chaining(std::vector<std::string> input_data);
+uint64_t adapter_chaining(std::vector<std::string> input_data);
