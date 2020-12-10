@@ -19,7 +19,8 @@ set(SOURCES
     day7/bag_type.cpp
     day7/day7.cpp
     day8.cpp
-    day9.cpp)
+    day9.cpp
+    day10.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})

@@ -50,6 +50,11 @@ static void day9() {
     std::cout << "Day9: " << xmas_breaker_part2(input_data, 25) << std::endl;
 }
 
+static void day10() {
+    auto input_data = aoc::read_input_linewise(day10_data);
+    std::cout << "Day10: " << adapter_chaining(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -60,5 +65,6 @@ int main() {
     day7();
     day8();
     day9();
+    day10();
     return 0;
 }
