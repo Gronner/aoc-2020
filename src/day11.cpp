@@ -34,8 +34,7 @@ static uint32_t count_taken_seats(seat_layout_t seat_layout) {
     return taken_seats;
 }
 
-unsigned int musical_chairs(std::vector<std::string> seat_layout) {
-    // First Round all seats get taken
+static void fence_in_first_seaters(seat_layout_t& seat_layout) {
     std::string extra_row(seat_layout[0].size(), '*');
     seat_layout.insert(seat_layout.begin(), extra_row);
     seat_layout.push_back(extra_row);
@@ -44,6 +43,11 @@ unsigned int musical_chairs(std::vector<std::string> seat_layout) {
         row.insert(row.begin(), '*');
         row.push_back('*');
     }
+}
+
+unsigned int musical_chairs(seat_layout_t seat_layout) {
+    // First Round all seats get taken
+    fence_in_first_seaters(seat_layout);
 
     auto seats_changed = 0;
     do {
