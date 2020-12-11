@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+using seat_layout_t = std::vector<std::string>;
+
 static constexpr bool has_not_too_many_neighbours(const uint32_t adjacent_taken_seats) {
     return 5 <= adjacent_taken_seats;
 }
@@ -22,6 +24,14 @@ static char get_next_seat_state(const char current_seat_state, const uint32_t ad
     } else {
         return current_seat_state;
     }
+}
+
+static uint32_t count_taken_seats(seat_layout_t seat_layout) {
+    uint32_t taken_seats = 0;
+    for(auto row: seat_layout) {
+        taken_seats += std::count_if(row.begin(), row.end(), [](char c) { return '#' == c; });
+    }
+    return taken_seats;
 }
 
 unsigned int musical_chairs(std::vector<std::string> seat_layout) {
@@ -81,14 +91,5 @@ unsigned int musical_chairs(std::vector<std::string> seat_layout) {
         seat_layout = seat_layout_tmp;
     } while(0 != seats_changed);
 
-    unsigned int taken_seats = 0;
-    for(auto row: seat_layout) {
-        for(auto place: row) {
-            if('#' == place) {
-                taken_seats++;
-            }
-        }
-    }
-
-    return taken_seats;
+    return count_taken_seats(seat_layout);
 }
