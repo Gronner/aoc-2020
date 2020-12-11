@@ -57,7 +57,7 @@ static void day10() {
 
 static void day11() {
     auto input_data = aoc::read_input_linewise(day11_data);
-    std::cout << "Day10: " << musical_chairs(input_data) << std::endl;
+    std::cout << "Day11: " << musical_chairs(input_data) << std::endl;
 }
 
 int main() {
