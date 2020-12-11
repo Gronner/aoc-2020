@@ -14,7 +14,7 @@ static constexpr bool is_seat_occupied(const char seat_state) {
     return '#' == seat_state ? true : false;
 }
 
-static char get_next_seat_state(char current_seat_state, uint32_t adjacent_taken_seats) {
+static char get_next_seat_state(const char current_seat_state, const uint32_t adjacent_taken_seats) {
     if(has_not_too_many_neighbours(adjacent_taken_seats) && is_seat_occupied(current_seat_state)) {
         return 'L';
     } else if(has_no_neighbours(adjacent_taken_seats) && !is_seat_occupied(current_seat_state)) {
