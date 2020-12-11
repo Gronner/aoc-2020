@@ -2,6 +2,28 @@
 
 #include <algorithm>
 
+static constexpr bool has_not_too_many_neighbours(const uint32_t adjacent_taken_seats) {
+    return 5 <= adjacent_taken_seats;
+}
+
+static constexpr bool has_no_neighbours(const uint32_t adjacent_taken_seats) {
+    return 0 == adjacent_taken_seats;
+}
+
+static constexpr bool is_seat_occupied(const char seat_state) {
+    return '#' == seat_state ? true : false;
+}
+
+static char get_next_seat_state(char current_seat_state, uint32_t adjacent_taken_seats) {
+    if(has_not_too_many_neighbours(adjacent_taken_seats) && is_seat_occupied(current_seat_state)) {
+        return 'L';
+    } else if(has_no_neighbours(adjacent_taken_seats) && !is_seat_occupied(current_seat_state)) {
+        return '#';
+    } else {
+        return current_seat_state;
+    }
+}
+
 unsigned int musical_chairs(std::vector<std::string> seat_layout) {
     // First Round all seats get taken
     std::string extra_row(seat_layout[0].size(), '*');
@@ -50,17 +72,9 @@ unsigned int musical_chairs(std::vector<std::string> seat_layout) {
                     }
                 }
 
-                if(5 <= adjacent_taken_seats) {
-                    if('#' == seat_layout[row].at(place)) {
-                        seat_layout_tmp[row][place] = 'L';
-                        seats_changed++;
-                    } 
-                } 
-                if(0 == adjacent_taken_seats) {
-                    if('L' == seat_layout[row].at(place)) {
-                        seat_layout_tmp[row][place] = '#';
-                        seats_changed++;
-                    }
+                seat_layout_tmp[row][place] = get_next_seat_state(seat_layout[row].at(place), adjacent_taken_seats);
+                if(seat_layout[row].at(place) != seat_layout_tmp[row].at(place)) {
+                    seats_changed++;
                 }
             }
         }
