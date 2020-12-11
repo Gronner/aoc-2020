@@ -4,6 +4,17 @@
 
 using seat_layout_t = std::vector<std::string>;
 
+static void fence_in_first_seaters(seat_layout_t& seat_layout) {
+    std::string extra_row(seat_layout[0].size(), '*');
+    seat_layout.insert(seat_layout.begin(), extra_row);
+    seat_layout.push_back(extra_row);
+    for(auto& row: seat_layout) {
+        std::replace(row.begin(), row.end(), 'L', '#');
+        row.insert(row.begin(), '*');
+        row.push_back('*');
+    }
+}
+
 static constexpr bool has_not_too_many_neighbours(const uint32_t adjacent_taken_seats) {
     return 5 <= adjacent_taken_seats;
 }
@@ -34,16 +45,6 @@ static uint32_t count_taken_seats(seat_layout_t seat_layout) {
     return taken_seats;
 }
 
-static void fence_in_first_seaters(seat_layout_t& seat_layout) {
-    std::string extra_row(seat_layout[0].size(), '*');
-    seat_layout.insert(seat_layout.begin(), extra_row);
-    seat_layout.push_back(extra_row);
-    for(auto& row: seat_layout) {
-        std::replace(row.begin(), row.end(), 'L', '#');
-        row.insert(row.begin(), '*');
-        row.push_back('*');
-    }
-}
 
 unsigned int musical_chairs(seat_layout_t seat_layout) {
     // First Round all seats get taken
