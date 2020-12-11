@@ -15,7 +15,7 @@ static void fence_in_first_seaters(seat_layout_t& seat_layout) {
     }
 }
 
-static uint32_t count_surrounding_taken_seats(const seat_layout_t seat_layout, const uint32_t row, const uint32_t place) {
+static uint32_t count_surrounding_taken_seats(const seat_layout_t& seat_layout, const uint32_t row, const uint32_t place) {
     static const std::vector<std::pair<int, int>> vectors = { 
         std::make_pair(1,0),
         std::make_pair(1,1),
@@ -65,7 +65,7 @@ static char get_next_seat_state(const char current_seat_state, const uint32_t ad
     }
 }
 
-static uint32_t count_taken_seats(seat_layout_t seat_layout) {
+static uint32_t count_taken_seats(const seat_layout_t& seat_layout) {
     uint32_t taken_seats = 0;
     for(auto row: seat_layout) {
         taken_seats += std::count_if(row.begin(), row.end(), [](char c) { return '#' == c; });
