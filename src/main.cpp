@@ -55,6 +55,11 @@ static void day10() {
     std::cout << "Day10: " << adapter_chaining(input_data) << std::endl;
 }
 
+static void day11() {
+    auto input_data = aoc::read_input_linewise(day11_data);
+    std::cout << "Day10: " << musical_chairs(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -66,5 +71,6 @@ int main() {
     day8();
     day9();
     day10();
+    day11();
     return 0;
 }

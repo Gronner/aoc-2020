@@ -14,3 +14,4 @@ unsigned int unpack_bags(std::vector<std::string> input_data);
 int boot_sequence(std::vector<std::string> input_data);
 uint64_t xmas_breaker_part2(std::vector<std::string> input_data, uint32_t ring_length);
 uint64_t adapter_chaining(std::vector<std::string> input_data);
+unsigned int musical_chairs(std::vector<std::string> input_data);
