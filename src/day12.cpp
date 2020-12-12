@@ -30,24 +30,24 @@ void move_direction(Ship& ferry, const char direction, const int speed) {
 }
 
 
-void turn(Ship& ferry, const char turn_direction, int degree) {
-    static const std::vector<char> turn_tables = {'N', 'E', 'S', 'W'};
-    auto current_table_entry = std::find(turn_tables.begin(), turn_tables.end(), ferry.direction);
+void move_to_waypoint(Ship& ferry, const Ship waypoint, const int speed) {
+    ferry.x += speed * waypoint.x;
+    ferry.y += speed * waypoint.y;
+}
+
+void turn(Ship& waypoint, const char turn_direction, int degree) {
     while(0 != degree) {
+        auto x = waypoint.x;
+        auto y = waypoint.y;
         degree -= 90;
         if('R' == turn_direction) {
-            current_table_entry++;
-            if(current_table_entry == turn_tables.end()) {
-                current_table_entry = turn_tables.begin();
-            }
+            waypoint.x = y;
+            waypoint.y = -x;
         } else {
-            if(current_table_entry == turn_tables.begin()) {
-                current_table_entry = turn_tables.end();
-            }
-            current_table_entry--;
+            waypoint.x = -y;
+            waypoint.y = x;
         }
     }
-    ferry.direction = *current_table_entry;
 }
 
 unsigned int compute_manhatten_distance(Ship ferry) {
@@ -61,16 +61,21 @@ unsigned int stormy_navigation(std::vector<std::string> input_data) {
         navigation_movements.push_back(std::make_pair(movement[1].at(0), std::stoi(movement[2])));
     } 
     Ship ferry = {0, 0, 'E'};
+    Ship waypoint {10, 1 , 'E'};
 
     for(const auto movement: navigation_movements) {
         switch(movement.first) {
-            case 'F': move_direction(ferry, ferry.direction, movement.second);
+            case 'F': move_to_waypoint(ferry, waypoint, movement.second);
                       break;
             case 'L': 
-            case 'R': turn(ferry, movement.first, movement.second);
+            case 'R': turn(waypoint, movement.first, movement.second);
                       break;
-            default: move_direction(ferry, movement.first, movement.second);
+            default: move_direction(waypoint, movement.first, movement.second);
         }
+        std::cout << "Command:" << movement.first << movement.second <<std::endl;
+        std::cout << "Waypoint:" << waypoint.x << " " << waypoint.y << std::endl;
+        std::cout << "Ferry:" << ferry.x << " " << ferry.y << std::endl;
+        std::cout << std::endl;
     }
 
     return compute_manhatten_distance(ferry);
