@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <string>
 
+#include "command.hpp"
+
 struct Position {
     int x;
     int y;
@@ -14,10 +16,10 @@ class Ship {
         Position waypoint;
         char direction;
         void move_to_waypoint(int speed);
-        void turn_waypoint(char turn_direction, int degree);
-        void move_waypoint(char move_direction, int distance);
+        void turn_waypoint(NavigationCommand command);
+        void move_waypoint(const NavigationCommand command);
     public:
         Ship(Position position=Position(0,0));
-        void navigate(std::string command);
+        void navigate(const NavigationCommand command);
         uint32_t traveled_distance(Position starting_point=Position(0,0)) const;
 };
