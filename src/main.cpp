@@ -67,7 +67,7 @@ static void day12() {
 
 static void day13() {
     auto input_data = aoc::read_input_linewise(day13_data);
-    std::cout << "Day13: " << bus_travel(input_data) << std::endl;
+    std::cout << "Day13: " << bus_travel_crt(input_data) << std::endl;
 }
 
 int main() {
