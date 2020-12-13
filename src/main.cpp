@@ -65,6 +65,11 @@ static void day12() {
     std::cout << "Day12: " << stormy_navigation(input_data) << std::endl;
 }
 
+static void day13() {
+    auto input_data = aoc::read_input_linewise(day13_data);
+    std::cout << "Day13: " << bus_travel(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -78,5 +83,6 @@ int main() {
     day10();
     day11();
     day12();
+    day13();
     return 0;
 }
