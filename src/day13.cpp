@@ -24,19 +24,11 @@ uint64_t bus_travel(std::vector<std::string> input_data) {
     auto biggest_id = *std::max_element(schedule_times.begin(), schedule_times.end());
     auto index_biggest_id = std::find(schedule.begin(), schedule.end(), std::to_string(biggest_id)) - schedule.begin();
 
-    uint64_t start_search_at = 100'000'000'000'000;
+    uint64_t start_search_at = 247'086'664'200'000;
     //const uint64_t first_bus = std::stoll(schedule[0]);
     start_search_at = start_search_at + (biggest_id - (start_search_at % biggest_id )) - index_biggest_id;
-    std::cout << "Biggest id is " << biggest_id << " at " << index_biggest_id << std::endl;
-    std::cout << "Start at: " << start_search_at << std::endl;
-
     auto found_counter = 0U;
-    auto last_check = start_search_at + 1'000'000'000'000;
     for(auto departure_time = start_search_at; departure_time < ULLONG_MAX; departure_time += biggest_id) {
-        if(departure_time > last_check) {
-            std::cout << "Reached" << departure_time << std::endl;
-            last_check += 1'000'000'000'000;
-        }
         for(auto bus = 0ULL; bus < schedule.size(); ++bus) {
             uint64_t bus_id;
             if(schedule[bus] != "x") {
@@ -45,7 +37,6 @@ uint64_t bus_travel(std::vector<std::string> input_data) {
                 found_counter++;
                 continue;
             }
-            // std::cout << bus_id << ": " << (departure_time + bus) % bus_id << std::endl;
             if(0 == (departure_time + bus) % bus_id) {
                 found_counter++;
             }
@@ -92,9 +83,6 @@ uint64_t bus_travel_crt(std::vector<std::string> input_data) {
         enumerate++;
     }
     std::sort(busses.begin(), busses.end(), [](auto a, auto b) { return a.first > b.first; });
-    for(auto bus: busses) {
-        std::cout << bus.first << " " << bus.second << std::endl;
-    }
 
     return chinese_remainder_solve(busses);
 }
