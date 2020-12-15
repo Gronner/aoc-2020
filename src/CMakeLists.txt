@@ -25,7 +25,8 @@ set(SOURCES
     day12/ship.cpp
     day12/day12.cpp
     day13.cpp
-    day14.cpp)
+    day14.cpp
+    day15.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})

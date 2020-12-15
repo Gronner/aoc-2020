@@ -20,3 +20,4 @@ unsigned int stormy_navigation(std::vector<std::string> input_data);
 uint64_t bus_travel(std::vector<std::string> input_data);
 uint64_t bus_travel_crt(std::vector<std::string> input_data);
 uint64_t dock_decoding(std::vector<std::string> input_data);
+uint64_t memory_cards(std::vector<std::string> input_data);

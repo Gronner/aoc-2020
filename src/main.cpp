@@ -75,6 +75,11 @@ static void day14() {
     std::cout << "Day14: " << dock_decoding(input_data) << std::endl;
 }
 
+static void day15() {
+    auto input_data = aoc::read_input_linewise(day15_data);
+    std::cout << "Day15: " << memory_cards(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -90,5 +95,6 @@ int main() {
     day12();
     day13();
     day14();
+    day15();
     return 0;
 }

@@ -17,3 +17,4 @@ const std::string day11_data = data_dir + "day11.txt";
 const std::string day12_data = data_dir + "day12.txt";
 const std::string day13_data = data_dir + "day13.txt";
 const std::string day14_data = data_dir + "day14.txt";
+const std::string day15_data = data_dir + "day15.txt";
