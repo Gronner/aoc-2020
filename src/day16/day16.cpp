@@ -6,8 +6,6 @@
 #include "day16/rule.hpp"
 #include "parsing.hpp"
 
-#include <iostream>
-
 uint64_t ticket_validation(std::vector<std::string> input_data) {
     /*
     input_data = {
@@ -135,7 +133,6 @@ uint64_t ticket_validation(std::vector<std::string> input_data) {
 
     auto departue_value = 1ULL;
     for(auto idx: departure_indices) {
-        std::cout << idx << " " << my_ticket[idx] << std::endl;
         departue_value *= my_ticket[idx];
     }
     return departue_value;
