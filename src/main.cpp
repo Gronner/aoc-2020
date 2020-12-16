@@ -80,6 +80,11 @@ static void day15() {
     std::cout << "Day15: " << memory_cards(input_data) << std::endl;
 }
 
+static void day16() {
+    auto input_data = aoc::read_input_linewise(day16_data);
+    std::cout << "Day16: " << ticket_validation(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -96,5 +101,6 @@ int main() {
     day13();
     day14();
     day15();
+    day16();
     return 0;
 }
