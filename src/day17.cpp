@@ -9,13 +9,6 @@ using space_t = std::vector<std::vector<std::vector<std::vector<bool>>>>;
 static constexpr auto rounds = 6U + 1U;
 
 uint64_t conways_cubes(std::vector<std::string> input_data) {
-    /*
-    input_data = {
-        ".#.",
-        "..#",
-        "###",
-    };
-    */
     space_t infinite_space;
     for(auto w = 0U; w < 3U + 2 * rounds; ++w){
         std::vector<std::vector<std::vector<bool>>> z_space;
@@ -38,7 +31,6 @@ uint64_t conways_cubes(std::vector<std::string> input_data) {
         coordinates[3] = 0 + rounds;
         for(auto x_dot: y_line) {
                 if('#' == x_dot) {
-                    std::cout << coordinates[2] << " " << coordinates[3] << std::endl;
                     infinite_space[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]] = true;
                 }
             coordinates[3]++;
@@ -68,24 +60,19 @@ uint64_t conways_cubes(std::vector<std::string> input_data) {
                     for(auto x = 1U; x < infinite_space[0][0][0].size() - 1; ++x) {
                         auto neighbors = 0;
                         for(auto coordinates: surrounding_space) {
-                            //std::cout << "Neighbour" << z_plane + coordinates[0] << " " << y_line + coordinates[1] << " " << x + coordinates[2] ;
                             if(true == infinite_space[w_plane + coordinates[0]][z_plane + coordinates[1]][y_line + coordinates[2]][x + coordinates[3]]) {
-                                //std::cout << " Active";
                                 neighbors++;
                             }
-                            //std::cout << std::endl;
                         }
 
                         if(true == infinite_space[w_plane][z_plane][y_line][x]) {
                             if(2 == neighbors || 3 == neighbors) {
 
                             } else {
-                                //std::cout << "Deactivate" << std::endl;
                                 future_space[w_plane][z_plane][y_line][x] = false;
                             }
                         } else {
                             if(3 == neighbors) {
-                                //std::cout << "Activate" << std::endl;
                                 future_space[w_plane][z_plane][y_line][x] = true;
                             }
                         }
