@@ -1,0 +1,34 @@
+#include "days.hpp"
+
+#include<map>
+#include<vector>
+
+using space_t = std::map<std::vector<int64_t>, bool>;
+
+uint64_t conways_cubes(std::vector<std::string> input_data) {
+    std::vector<int64_t> coordinates = {0, 0, 0}; // x, y, z
+    space_t infinite_space;
+    for(auto y_line: input_data) {
+        for(auto x_dot: y_line) {
+                if('#' == x_dot) {
+                    infinite_space.insert(std::make_pair(coordinates, true));
+                }
+            coordinates[0]++;
+        }
+        coordinates[1]++;
+    }
+
+    static const std::vector<std::vector<int64_t>> surrounding_space = {
+        {0, 0, -1}, {-1, 0, -1}, {-1, 1, -1}, {0, 1, -1}, {1, 1, -1}, {1, 0, -1}, {1, -1, -1}, {0, -1, -1}, {-1, -1, -1},
+        {-1, 0, 0}, {-1, 1, 0}, {0, 1, 0}, {1, 1, 0}, {1, 0, 0}, {1, -1, 0}, {0, -1, 0}, {-1, -1, 0},
+        {0, 0, 1}, {-1, 0, 1}, {-1, 1, 1}, {0, 1, 1}, {1, 1, 1}, {1, 0, 1}, {1, -1, 1}, {0, -1, 1}, {-1, -1, 1}
+    };
+    for(auto time = 0U; time < 6; ++time) {
+        space_t future_space = infinite_space;
+        for(auto cube: infinite_space) {
+
+        }
+    }
+
+    return 0;
+}

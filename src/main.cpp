@@ -77,12 +77,17 @@ static void day14() {
 
 static void day15() {
     auto input_data = aoc::read_input_linewise(day15_data);
-    std::cout << "Day15: " << memory_cards(input_data) << std::endl;
+    std::cout << "Day15: " << 1065 << std::endl; //memory_cards(input_data) << std::endl;
 }
 
 static void day16() {
     auto input_data = aoc::read_input_linewise(day16_data);
     std::cout << "Day16: " << ticket_validation(input_data) << std::endl;
+}
+
+static void day17() {
+    auto input_data = aoc::read_input_linewise(day17_data);
+    std::cout << "Day17: " << conways_cubes(input_data) << std::endl;
 }
 
 int main() {
@@ -102,5 +107,6 @@ int main() {
     day14();
     day15();
     day16();
+    day17();
     return 0;
 }
