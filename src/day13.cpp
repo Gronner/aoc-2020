@@ -8,13 +8,6 @@
 #include "parsing.hpp"
 
 uint64_t bus_travel(std::vector<std::string> input_data) {
-    /*
-    input_data = {
-        "",
-        "17,x,13,19"
-    };
-    */
-    //uint64_t earliest_departure = std::stoll(input_data[0]);
     const auto schedule = aoc::split_on_delimiter(input_data[1], ",");
 
     auto schedule_tmp = schedule;
@@ -25,7 +18,6 @@ uint64_t bus_travel(std::vector<std::string> input_data) {
     auto index_biggest_id = std::find(schedule.begin(), schedule.end(), std::to_string(biggest_id)) - schedule.begin();
 
     uint64_t start_search_at = 247'086'664'200'000;
-    //const uint64_t first_bus = std::stoll(schedule[0]);
     start_search_at = start_search_at + (biggest_id - (start_search_at % biggest_id )) - index_biggest_id;
     auto found_counter = 0U;
     for(auto departure_time = start_search_at; departure_time < ULLONG_MAX; departure_time += biggest_id) {
