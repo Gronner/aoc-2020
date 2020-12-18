@@ -77,7 +77,7 @@ static void day14() {
 
 static void day15() {
     auto input_data = aoc::read_input_linewise(day15_data);
-    std::cout << "Day15: " << 1065 << std::endl; //memory_cards(input_data) << std::endl;
+    std::cout << "Day15: " << 1065 << std::endl; //memory_cards(input_data, 30000000) << std::endl;
 }
 
 static void day16() {
