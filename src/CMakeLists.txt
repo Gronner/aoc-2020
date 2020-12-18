@@ -1,7 +1,7 @@
 set(BINARY ${CMAKE_PROJECT_NAME})
 
 set(CMAKE_CXX_FLAGS "-std=c++20")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wpedantic -Werror -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wpedantic -Werror -fconstexpr-loop-limit=30000001 -fconstexpr-ops-limit=9000000000 -O3")
 
 set(SOURCES
     main.cpp
@@ -26,7 +26,6 @@ set(SOURCES
     day12/day12.cpp
     day13.cpp
     day14.cpp
-    day15.cpp
     day16/rule.cpp
     day16/day16.cpp
     day17.cpp

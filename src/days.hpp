@@ -20,7 +20,6 @@ unsigned int stormy_navigation(std::vector<std::string> input_data);
 uint64_t bus_travel(std::vector<std::string> input_data);
 uint64_t bus_travel_crt(std::vector<std::string> input_data);
 uint64_t dock_decoding(std::vector<std::string> input_data);
-uint64_t memory_cards(std::vector<std::string> input_data, uint64_t rounds);
 uint64_t ticket_validation(std::vector<std::string> input_data);
 uint64_t conways_cubes(std::vector<std::string> input_data);
 uint64_t homework(std::vector<std::string> input_data);

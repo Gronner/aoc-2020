@@ -1,15 +1,12 @@
 #include "gtest/gtest.h"
 
-#include "aoc_input.hpp"
-#include "data.hpp"
-#include "days.hpp"
+#include "day15.hpp"
 
-TEST(Day15Test, RiddleInputPart1) {
-    auto input_data = aoc::read_input_linewise(day15_data);
-    ASSERT_EQ(614, memory_cards(input_data, 2020));
+TEST(Day15Test, RiddleInputPart) {
+    constexpr auto result = memory_cards(2020);
+    ASSERT_EQ(614, result);
 }
 
-TEST(Day15Test, RiddleInputPart2) {
-    auto input_data = aoc::read_input_linewise(day15_data);
-    ASSERT_EQ(1065, memory_cards(input_data, 30000000));
+TEST(Day15Test, DISABLED_RiddleInputPart2) {
+    ASSERT_EQ(1065, memory_cards(30000000));
 }

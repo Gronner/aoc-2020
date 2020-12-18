@@ -1,4 +1,5 @@
 #include "days.hpp"
+#include "day15.hpp"
 
 #include <iostream>
 
@@ -76,8 +77,9 @@ static void day14() {
 }
 
 static void day15() {
-    auto input_data = aoc::read_input_linewise(day15_data);
-    std::cout << "Day15: " << 1065 << std::endl; //memory_cards(input_data, 30000000) << std::endl;
+    constexpr uint64_t rounds = 2020;
+    constexpr uint64_t result = memory_cards(rounds);
+    std::cout << "Day15: " << result << std::endl;
 }
 
 static void day16() {
