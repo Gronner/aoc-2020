@@ -74,28 +74,28 @@ static uint32_t count_taken_seats(const seat_layout_t& seat_layout) {
 }
 
 
-unsigned int musical_chairs(seat_layout_t seat_layout) {
+unsigned int musical_chairs(input_t input_data) {
     // First Round all seats get taken
-    fence_in_first_seaters(seat_layout);
+    fence_in_first_seaters(input_data);
 
     auto seats_changed = 0;
     do {
         seats_changed = 0;
-        auto seat_layout_tmp = seat_layout;
-        for(auto row = 1U; row != seat_layout.size() - 1; ++row) {
-            for(auto place = 1U; place != seat_layout[row].size() - 1; ++place) {
-                if(seat_layout[row].at(place) == '.') {
+        auto seat_layout_tmp = input_data;
+        for(auto row = 1U; row != input_data.size() - 1; ++row) {
+            for(auto place = 1U; place != input_data[row].size() - 1; ++place) {
+                if(input_data[row].at(place) == '.') {
                     continue;
                 }
-                const auto adjacent_taken_seats = count_surrounding_taken_seats(seat_layout, row, place);
-                seat_layout_tmp[row][place] = get_next_seat_state(seat_layout[row].at(place), adjacent_taken_seats);
-                if(seat_layout[row].at(place) != seat_layout_tmp[row].at(place)) {
+                const auto adjacent_taken_seats = count_surrounding_taken_seats(input_data, row, place);
+                seat_layout_tmp[row][place] = get_next_seat_state(input_data[row].at(place), adjacent_taken_seats);
+                if(input_data[row].at(place) != seat_layout_tmp[row].at(place)) {
                     seats_changed++;
                 }
             }
         }
-        seat_layout = seat_layout_tmp;
+        input_data = seat_layout_tmp;
     } while(0 != seats_changed);
 
-    return count_taken_seats(seat_layout);
+    return count_taken_seats(input_data);
 }

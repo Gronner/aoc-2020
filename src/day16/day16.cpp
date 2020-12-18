@@ -6,7 +6,7 @@
 #include "day16/rule.hpp"
 #include "parsing.hpp"
 
-uint64_t ticket_validation(std::vector<std::string> input_data) {
+uint64_t ticket_validation(input_t input_data) {
     auto mode = 0;
     std::vector<Rule> rules;
     std::vector<std::vector<uint64_t>> tickets;

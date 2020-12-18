@@ -8,7 +8,7 @@ static uint32_t to_number(const std::string& input) {
     return std::stoul(input);
 }
 
-static std::vector<uint32_t> chain_adapters(const std::vector<std::string> input_data) {
+static std::vector<uint32_t> chain_adapters(const input_t input_data) {
     std::vector<uint32_t> adapters;
     std::transform(input_data.begin(), input_data.end(), std::back_inserter(adapters), to_number);
     std::sort(adapters.begin(), adapters.end());
@@ -59,7 +59,7 @@ static uint64_t determine_possible_chains(const std::vector<uint32_t> jumpable_a
     return product;
 }
 
-uint64_t adapter_chaining(const std::vector<std::string> input_data) {
+uint64_t adapter_chaining(const input_t input_data) {
     const auto adapters = chain_adapters(input_data);
     const auto differentials = compute_differentials(adapters);
     const auto jumpables = count_jumpable_adapters(differentials);

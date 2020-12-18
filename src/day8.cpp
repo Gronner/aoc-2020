@@ -61,7 +61,7 @@ static std::pair<bool, int> run_computer(const OpcodeList opcode_list) {
     return std::make_pair(success, accumulator);
 }
 
-int boot_sequence(const std::vector<std::string> input_data) {
+int boot_sequence(const input_t input_data) {
     const auto opcode_list = parse_opcodes(input_data);
     
     auto op_iter = opcode_list.cbegin();

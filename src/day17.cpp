@@ -8,7 +8,7 @@
 using space_t = std::vector<std::vector<std::vector<std::vector<bool>>>>;
 static constexpr auto rounds = 6U + 1U;
 
-uint64_t conways_cubes(std::vector<std::string> input_data) {
+uint64_t conways_cubes(input_t input_data) {
     space_t infinite_space;
     for(auto w = 0U; w < 3U + 2 * rounds; ++w){
         std::vector<std::vector<std::vector<bool>>> z_space;

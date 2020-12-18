@@ -11,7 +11,7 @@ static unsigned int count_trees(
     const unsigned int hill_height,
     const unsigned int hill_part_width);
 
-unsigned int sleeding(std::vector<std::string> input_data) {
+unsigned int sleeding(input_t input_data) {
     constexpr int speed_sets[5][2] = {{1, 1}, {3, 1}, {5, 1}, {7, 1}, {1, 2}};
     const auto hill_height = input_data.size() - 1;
     const auto hill_part_width = input_data[0].length();

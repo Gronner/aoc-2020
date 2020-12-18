@@ -18,7 +18,7 @@ static bool sum_of_parts(uint64_t current_value, std::vector<uint64_t> ring_puff
     return false;
 }
 
-std::pair<uint64_t, auto> xmas_breaker(std::vector<std::string> input_data, uint32_t ring_length) {
+std::pair<uint64_t, auto> xmas_breaker(input_t input_data, uint32_t ring_length) {
     auto input_pos = input_data.cbegin();
     
     std::vector<uint64_t> ring_puffer;
@@ -59,7 +59,7 @@ static uint64_t get_sum(const size_t sliding_window_size, const std::vector<uint
     return 0;
 }
 
-uint64_t xmas_breaker_part2(std::vector<std::string> input_data, uint32_t ring_length) {
+uint64_t xmas_breaker_part2(input_t input_data, uint32_t ring_length) {
     const auto first_break = xmas_breaker(input_data, ring_length);
     const auto encryption_cipher = first_break.first;
     const auto position_first_break = first_break.second;

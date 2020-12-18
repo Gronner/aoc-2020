@@ -4,7 +4,7 @@
 
 #include "day6/travel_group.hpp"
 
-static auto retrieve_tarvel_groups(const std::vector<std::string> input_data) {
+static auto retrieve_tarvel_groups(const input_t input_data) {
     std::vector<TravelGroup> travel_groups;
     std::string temporary_answer = "";
 
@@ -25,7 +25,7 @@ static auto retrieve_tarvel_groups(const std::vector<std::string> input_data) {
     return travel_groups;
 }
 
-unsigned int count_customs_answers(const std::vector<std::string> input_data) {
+unsigned int count_customs_answers(const input_t input_data) {
     const auto travel_groups  = retrieve_tarvel_groups(input_data);
     unsigned int answer_count = 0;
 

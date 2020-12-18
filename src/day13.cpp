@@ -7,7 +7,7 @@
 #include <utility>
 #include "parsing.hpp"
 
-uint64_t bus_travel(std::vector<std::string> input_data) {
+uint64_t bus_travel(input_t input_data) {
     const auto schedule = aoc::split_on_delimiter(input_data[1], ",");
 
     auto schedule_tmp = schedule;
@@ -60,7 +60,7 @@ uint64_t chinese_remainder_solve(busses_t busses) {
     return time;
 }
 
-uint64_t bus_travel_crt(std::vector<std::string> input_data) {
+uint64_t bus_travel_crt(input_t input_data) {
     const auto schedule = aoc::split_on_delimiter(input_data[1], ",");
     busses_t busses;
     int64_t enumerate = 0;

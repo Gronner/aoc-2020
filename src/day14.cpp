@@ -33,7 +33,7 @@ std::vector<std::string> generate_masks(const std::string input_mask) {
     return masks;
 }
 
-uint64_t dock_decoding(const std::vector<std::string> input_data) {
+uint64_t dock_decoding(const input_t input_data) {
     std::map<uint64_t, uint64_t> memory;
     std::string mask;
     for(const auto line: input_data) {

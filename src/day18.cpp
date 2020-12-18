@@ -76,7 +76,7 @@ static uint64_t compute_postfix(const std::vector<char> postfix_notation) {
     return stack.back();
 }
 
-uint64_t homework(const std::vector<std::string> input_data) {
+uint64_t homework(const input_t input_data) {
     uint64_t sum = 0;
     for(const auto line: input_data) {
         const auto postfix_notation = shunting_yard(line);

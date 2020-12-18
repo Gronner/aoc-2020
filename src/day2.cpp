@@ -5,7 +5,7 @@
 #include "aoc_input.hpp"
 #include "parsing.hpp"
 
-unsigned int passwort_policy_matches(std::vector<std::string> input_data) {
+unsigned int passwort_policy_matches(input_t input_data) {
     unsigned int found_matches = 0;
 
     for(auto pwpol: input_data) {

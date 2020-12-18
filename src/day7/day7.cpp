@@ -39,7 +39,7 @@ static unsigned int search_through_map(const std::string current_bag, const std:
     return bag_count;
 }
 
-unsigned int unpack_bags(const std::vector<std::string> input_data) {
+unsigned int unpack_bags(const input_t input_data) {
     std::multimap<std::string, BagType> bag_map;
     for(const auto line: input_data) {
         build_map(line, bag_map);

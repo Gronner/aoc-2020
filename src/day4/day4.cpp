@@ -2,7 +2,7 @@
 
 #include "day4/passport.hpp"
 
-static auto normalize_passport_layout(const std::vector<std::string> input_data) {
+static auto normalize_passport_layout(const input_t input_data) {
     std::vector<std::string> normalized_passports;
     std::string temporary_passport = "";
     for(auto line: input_data) {
@@ -17,7 +17,7 @@ static auto normalize_passport_layout(const std::vector<std::string> input_data)
     return normalized_passports;
 }
 
-unsigned int check_valid_passports(const std::vector<std::string> input_data) {
+unsigned int check_valid_passports(const input_t input_data) {
     auto normalized_passports = normalize_passport_layout(input_data);
     unsigned int valid_count = 0;
     for(auto passport: normalized_passports) {

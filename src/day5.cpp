@@ -86,7 +86,7 @@ static unsigned int pass_to_number(std::string& pass) {
 }
 
 
-unsigned int alternative_seat_search(std::vector<std::string> input_data) {
+unsigned int alternative_seat_search(input_t input_data) {
     std::vector<unsigned int> seats;
     std::transform(input_data.begin(), input_data.end(), std::back_inserter(seats), pass_to_number);
     return identify_empty_seat(seats);
