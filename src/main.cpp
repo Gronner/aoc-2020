@@ -90,6 +90,11 @@ static void day17() {
     std::cout << "Day17: " << conways_cubes(input_data) << std::endl;
 }
 
+static void day18() {
+    auto input_data = aoc::read_input_linewise(day18_data);
+    std::cout << "Day18: " << homework(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -108,5 +113,6 @@ int main() {
     day15();
     day16();
     day17();
+    day18();
     return 0;
 }
