@@ -16,7 +16,8 @@ set(TEST_SOURCES
     day12_tests.cpp
     day13_tests.cpp
     day14_tests.cpp
-    day15_tests.cpp)
+    day15_tests.cpp
+    day16_tests.cpp)
 
 set(SOURCES ${TEST_SOURCES})
 
