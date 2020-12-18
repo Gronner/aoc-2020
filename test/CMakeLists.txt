@@ -14,6 +14,7 @@ set(TEST_SOURCES
     day10_tests.cpp
     day11_tests.cpp
     day12_tests.cpp
+    day13_tests.cpp
     day14_tests.cpp)
 
 set(SOURCES ${TEST_SOURCES})
