@@ -17,6 +17,7 @@ def prepare_input(data):
 parsed_rules = {}
 @functools.lru_cache(None)
 def recurse_rules(r):
+    global parsed_rules
     if r == 8:
         return '(' + recurse_rules(42) + '+' + ')'
     if r == 11:
