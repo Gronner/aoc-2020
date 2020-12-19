@@ -3,20 +3,25 @@
 #include<map>
 #include "parsing.hpp"
 
-std::string recurse_rules(std::map<uint64_t, std::string>& rules, uint64_t rule) {
-    if(rules[rule] == "\"a\"" || rules[rule] == "\"b\"") {
-        return rules[rule] == "\"a\"" ? "a" : "b";
+static std::map<int, std::string> cached_rules;
+std::string recurse_rules(const std::map<uint64_t, std::string> rules, const uint64_t rule_idx) {
+    const auto rule = (*rules.find(rule_idx)).second;
+    if(rule == "\"a\"" || rule == "\"b\"") {
+        return rule == "\"a\"" ? "a" : "b";
     }
-    auto tokens = aoc::split_on_delimiter(rules[rule], " ");
+    if(cached_rules.contains(rule_idx)) {
+        return cached_rules[rule_idx];
+    }
+    const auto tokens = aoc::split_on_delimiter(rule, " ");
 
     std::string new_rule = "";
     new_rule += ("(?:");
-    if(8 == rule) {
+    if(8 == rule_idx) {
         new_rule += recurse_rules(rules, 42);
         // new_rule.push_back('+'); Part 2
-    } else if(11 == rule) {
-        auto expr42 = recurse_rules(rules, 42);
-        auto expr31 = recurse_rules(rules, 31);
+    } else if(11 == rule_idx) {
+        const auto expr42 = recurse_rules(rules, 42);
+        const auto expr31 = recurse_rules(rules, 31);
         constexpr auto stop_recursion_at = 1;  // Higher for Part 2 in theory
         for(auto i = 1; i < (stop_recursion_at + 1); i++) {
             new_rule.push_back('(');
@@ -28,7 +33,7 @@ std::string recurse_rules(std::map<uint64_t, std::string>& rules, uint64_t rule)
             new_rule.push_back('|');
         }
     } else {
-        for(auto token: tokens) {
+        for(const auto token: tokens) {
             if(token == "|") {
                 new_rule.push_back('|');
             } else {
@@ -37,10 +42,12 @@ std::string recurse_rules(std::map<uint64_t, std::string>& rules, uint64_t rule)
         }
     }
     new_rule.push_back(')');
+    cached_rules.insert(std::make_pair(rule_idx, new_rule));
     return new_rule;
 }
 
 uint64_t monster_messages(input_t input_data) {
+    cached_rules.clear();
     auto mode = 0;
     std::map<uint64_t, std::string> rules;
     std::vector<std::string> data;
@@ -60,10 +67,10 @@ uint64_t monster_messages(input_t input_data) {
     rules[8] = "42 | 42 8"; // This basically means 42+ in regex
     rules[11] = "42 31 | 42 11 31"; // This basically means 42{1}31{1} | 42{2}31{2} | ... | 42{i}31{i} in regex and with eyeballing one can see that recursion depth is not unlimited and resonable. Sadly something breaks here in std::regex or I have an error elsewhere
 
-    std::string new_rule = recurse_rules(rules, 0);
+    const std::string new_rule = recurse_rules(rules, 0);
 
     uint64_t count = 0;
-    for(auto datum: data) {
+    for(const auto datum: data) {
         if(aoc::matches(datum, new_rule)) {
             count++;
         }

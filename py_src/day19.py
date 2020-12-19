@@ -16,17 +16,17 @@ def prepare_input(data):
 
 parsed_rules = {}
 @functools.lru_cache(None)
-def recurse_rules(r):
+def recurse_rules(r_idx):
     global parsed_rules
-    if r == 8:
+    if r_idx == 8:
         return '(' + recurse_rules(42) + '+' + ')'
-    if r == 11:
+    if r_idx == 11:
         return '(?P<Rule11>%s(?P&Rule11)%s|%s%s)' % (recurse_rules(42), recurse_rules(31), recurse_rules(42), recurse_rules(31))
-    if '"' in parsed_rules[r]:
-        tmp = parsed_rules[r].replace('"', '')
+    if '"' in parsed_rules[r_idx]:
+        tmp = parsed_rules[r_idx].replace('"', '')
         return '(' + tmp + ')'
     res = []
-    for chunk in parsed_rules[r].split(' | '):
+    for chunk in parsed_rules[r_idx].split(' | '):
         x = ''.join(recurse_rules(int(c)) for c in chunk.split())
         res.append(x)
     return '(' + '|'.join(res) + ')'

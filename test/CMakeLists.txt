@@ -1,5 +1,7 @@
 set(BINARY ${CMAKE_PROJECT_NAME}_test)
 
+set(CMAKE_CXX_FLAGS "-std=c++20")
+
 set(TEST_SOURCES
     main_test.cpp
     day1_tests.cpp
