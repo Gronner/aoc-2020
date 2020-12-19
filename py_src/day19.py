@@ -38,10 +38,10 @@ def monster_message():
     with open("../data/day19.txt", 'r') as f:
         data = f.read()
     parsed_rules, data = prepare_input(data)
-    new_rule  = '^' + recurse_rules(0) + '$'
+    new_rule  = recurse_rules(0)
     count = 0
     for datum in data:
-        count += regex.match(new_rule, datum) is not None
+        count += regex.fullmatch(new_rule, datum) is not None
 
     print(count)
 
