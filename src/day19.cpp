@@ -57,8 +57,8 @@ uint64_t monster_messages(input_t input_data) {
             data.push_back(line);
         }
     }
-    rules[8] = "42 | 42 8";
-    rules[11] = "42 31 | 42 11 31";
+    rules[8] = "42 | 42 8"; // This basically means 42+ in regex
+    rules[11] = "42 31 | 42 11 31"; // This basically means 42{1}31{1} | 42{2}31{2} | ... | 42{i}31{i} in regex and with eyeballing one can see that recursion depth is not unlimited and resonable. Sadly something breaks here in std::regex or I have an error elsewhere
 
     std::string new_rule = recurse_rules(rules, 0);
 
