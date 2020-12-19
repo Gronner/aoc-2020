@@ -25,4 +25,4 @@ uint64_t dock_decoding(input_t input_data);
 uint64_t ticket_validation(input_t input_data);
 uint64_t conways_cubes(input_t input_data);
 uint64_t homework(input_t input_data);
-uint64_t solve_day19(input_t input_data);
+uint64_t monster_messages(input_t input_data);
