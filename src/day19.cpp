@@ -46,7 +46,7 @@ std::string recurse_rules(const std::map<uint64_t, std::string> rules, const uin
     return new_rule;
 }
 
-uint64_t monster_messages(input_t input_data) {
+uint64_t monster_messages(const input_t input_data) {
     cached_rules.clear();
     auto mode = 0;
     std::map<uint64_t, std::string> rules;
