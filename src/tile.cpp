@@ -51,6 +51,7 @@ uint64_t Tile::fit(const Tile other) {
     }
 
     if(is_fit_right(other)) {
+        std::cout << right_side << " " << other.left_side << std::endl;
         return 2;
     }
 
@@ -103,6 +104,7 @@ void Tile::rotate_picture() {
             tmp_picture[i].push_back(line.at(i));
         }
     }
+    tile_picture = tmp_picture;
 }
 
 void Tile::rotate() {
@@ -113,7 +115,9 @@ void Tile::rotate() {
     bottom_side = left_side;
     left_side = tmp_top_side;
     std::reverse(left_side.begin(), left_side.end());
+
     orientation = (orientation + 90) % 360;
+    assert(orientation % 90U == 0U && orientation < 360U);
 
     auto tmp_above = above;
     above = right;
@@ -137,11 +141,15 @@ void Tile::flip() {
     } else {
         flipped = 0U;
     }
+
     std::reverse(top_side.begin(), top_side.end());
+
     auto tmp = right_side;
     right_side = left_side;
     left_side = tmp;
+
     std::reverse(bottom_side.begin(), bottom_side.end());
+
     auto tmp_right = right;
     right = left;
     left = tmp_right;

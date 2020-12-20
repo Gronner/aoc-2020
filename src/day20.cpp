@@ -39,6 +39,8 @@ static auto parse_tiles(const input_t input_data) {
 static void connect_tiles(std::vector<Tile>& tiles) {
     for(auto& tile: tiles) {
         for(auto other: tiles) {
+            std::cout << tile.get_id() << " to " << other.get_id() << std::endl;
+            std::cout << tile.get_orientation() << " " << tile.get_flipped() << std::endl;
             if(tile.get_id() == other.get_id()) {
                 continue;
             }
@@ -51,13 +53,17 @@ static void connect_tiles(std::vector<Tile>& tiles) {
                         found = true;
                         break;
                     }
+                    std::cout << "Rotate" << std::endl;
                     other.rotate();
                 }
                 if(found) {
                     break;
                 }
+                std::cout << "Flip" << std::endl;
                 other.flip();
             }
+            std::cout << tile.get_orientation() << " " << tile.get_flipped() << std::endl;
+            std::cout << other.get_id() << " " << other.get_orientation() << " " << other.get_flipped() << std::endl;
         }
     }
 }
@@ -118,12 +124,17 @@ static Tile find_top_left_corner(const std::vector<Tile> tiles) {
 }
 
 static void turn_to_fit(Tile& tile, const uint64_t flipped, const uint64_t orientation) {
+    std::cout << tile.get_id() << std::endl;
+    std::cout << "Should: " << flipped << " Is: " << tile.get_flipped() << std::endl;
     while(flipped != tile.get_flipped()) {
         tile.flip();
     }
+    std::cout << "Should: " << flipped << " Is: " << tile.get_flipped() << std::endl;
+    std::cout << "Should: " << orientation << " Is: " << tile.get_orientation() << std::endl;
     while(orientation != tile.get_orientation()) {
         tile.rotate();
     }
+    std::cout << "Should: " << orientation << " Is: " << tile.get_orientation() << std::endl;
 }
 
 static std::vector<Tile> build_longitude(const std::vector<Tile> tiles, Tile current_tile) {
@@ -132,7 +143,7 @@ static std::vector<Tile> build_longitude(const std::vector<Tile> tiles, Tile cur
     while(current_tile.has_right_tile()) {
         const auto right_tile_info = current_tile.get_right_tile();
         assert(right_tile_info[0] != 0U);
-        assert(right_tile_info[1] < 360U);
+        assert(right_tile_info[1] % 90U == 0U && right_tile_info[1] < 360U);
         assert(right_tile_info[2] == 1U || right_tile_info[2] == 0U);
         auto next_tile = find_tile(tiles, right_tile_info[0]);
         turn_to_fit(next_tile, right_tile_info[2], right_tile_info[1]);
@@ -146,6 +157,9 @@ static std::vector<Tile> build_longitude(const std::vector<Tile> tiles, Tile cur
 }
 
 static Tile get_next_tile_below(const std::vector<Tile> tiles, const uint64_t id, const uint64_t flipped, const uint64_t orientation) {
+    assert(id != 0);
+    assert(flipped == 1U || flipped == 0U);
+    assert(orientation % 90U == 0U && orientation < 360U);
     auto next_tile = find_tile(tiles, id);
     turn_to_fit(next_tile, flipped, orientation);
     return next_tile;
@@ -265,8 +279,11 @@ uint64_t solve_day20(input_t input_data) {
     auto tiles = parse_tiles(input_data);
     connect_tiles(tiles);
     const auto product = compute_corner_product(tiles);
+
+
     assert(20899048083289 == product);
     // assert(20033377297069 == product);
+    std::cout << "\nPart 1 finished\n" << std::endl;
     
     for(auto& tile: tiles) {
         tile.strip_sides();
@@ -285,8 +302,8 @@ uint64_t solve_day20(input_t input_data) {
 
         auto next_tile_below = get_next_tile_below(tiles,
                                                    next_tile_below_information[0],
-                                                   next_tile_below_information[1],
-                                                   next_tile_below_information[2]);
+                                                   next_tile_below_information[2],
+                                                   next_tile_below_information[1]);
         assert(current_tile.is_fit_below(next_tile_below));
         current_tile = next_tile_below;
     }
