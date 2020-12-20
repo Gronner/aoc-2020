@@ -39,8 +39,6 @@ static auto parse_tiles(const input_t input_data) {
 static void connect_tiles(std::vector<Tile>& tiles) {
     for(auto& tile: tiles) {
         for(auto other: tiles) {
-            std::cout << tile.get_id() << " to " << other.get_id() << std::endl;
-            std::cout << tile.get_orientation() << " " << tile.get_flipped() << std::endl;
             if(tile.get_id() == other.get_id()) {
                 continue;
             }
@@ -53,17 +51,13 @@ static void connect_tiles(std::vector<Tile>& tiles) {
                         found = true;
                         break;
                     }
-                    std::cout << "Rotate" << std::endl;
                     other.rotate();
                 }
                 if(found) {
                     break;
                 }
-                std::cout << "Flip" << std::endl;
                 other.flip();
             }
-            std::cout << tile.get_orientation() << " " << tile.get_flipped() << std::endl;
-            std::cout << other.get_id() << " " << other.get_orientation() << " " << other.get_flipped() << std::endl;
         }
     }
 }
@@ -124,17 +118,12 @@ static Tile find_top_left_corner(const std::vector<Tile> tiles) {
 }
 
 static void turn_to_fit(Tile& tile, const uint64_t flipped, const uint64_t orientation) {
-    std::cout << tile.get_id() << std::endl;
-    std::cout << "Should: " << flipped << " Is: " << tile.get_flipped() << std::endl;
     while(flipped != tile.get_flipped()) {
         tile.flip();
     }
-    std::cout << "Should: " << flipped << " Is: " << tile.get_flipped() << std::endl;
-    std::cout << "Should: " << orientation << " Is: " << tile.get_orientation() << std::endl;
     while(orientation != tile.get_orientation()) {
         tile.rotate();
     }
-    std::cout << "Should: " << orientation << " Is: " << tile.get_orientation() << std::endl;
 }
 
 static std::vector<Tile> build_longitude(const std::vector<Tile> tiles, Tile current_tile) {
@@ -148,6 +137,11 @@ static std::vector<Tile> build_longitude(const std::vector<Tile> tiles, Tile cur
         auto next_tile = find_tile(tiles, right_tile_info[0]);
         turn_to_fit(next_tile, right_tile_info[2], right_tile_info[1]);
 
+        std::cout << current_tile.get_id() << std::endl;
+        print_tile_information(tiles, current_tile.get_id());
+        std::cout << current_tile << std::endl;
+        std::cout << std::endl;
+        std::cout << next_tile<< std::endl;
         assert(current_tile.is_fit_right(next_tile));
 
         longitude.push_back(next_tile);
@@ -163,6 +157,80 @@ static Tile get_next_tile_below(const std::vector<Tile> tiles, const uint64_t id
     auto next_tile = find_tile(tiles, id);
     turn_to_fit(next_tile, flipped, orientation);
     return next_tile;
+}
+
+static std::vector<std::vector<uint64_t>> get_positions(const std::vector<std::string> monster, char look='#') {
+    std::vector<std::vector<uint64_t>> monster_position;
+    for(auto line: monster) {
+        std::vector<uint64_t> positions;
+        for(auto i = 0U; i < line.size(); ++i) {
+            if(look == line.at(i)) {
+                positions.push_back(i);
+            }
+        }
+        monster_position.push_back(positions);
+    }
+    return monster_position;
+}
+
+static bool check_bodypart(const std::string input, const std::vector<uint64_t> bodypart) {
+    for(auto pos: bodypart) {
+        if('#' != input.at(pos)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+static uint64_t find_monster(std::vector<std::string> sea_picture) {
+    static const std::vector<std::string> monster = {
+        "                  # ",
+        "#    ##    ##    ###",
+        " #  #  #  #  #  #   ",
+    };
+    static const auto monster_position = get_positions(monster);
+
+    uint64_t monster_count = 0;
+    for(auto line = 0U; (line + 2) < sea_picture.size(); ++line) {
+        for(auto start = 0U; (start + monster[0].size()) != sea_picture[line].size(); ++start) {
+            auto top = check_bodypart(sea_picture[line].substr(start, monster[0].size()), monster_position[0]);
+            auto mid = check_bodypart(sea_picture[line + 1].substr(start, monster[1].size()), monster_position[1]);
+            auto bot = check_bodypart(sea_picture[line + 2].substr(start, monster[2].size()), monster_position[2]);
+            if(top && mid && bot) {
+                monster_count++;
+            }
+        }
+    }
+    return monster_count;
+}
+
+
+static void kill_bodyparts(std::string& line, std::vector<uint64_t> positions, uint64_t offset) {
+    for(auto pos: positions) {
+        line[pos + offset] = 'O';
+    }
+}
+
+static void kill_the_monsters(std::vector<std::string>& sea_picture) {
+    static const std::vector<std::string> monster = {
+        "                  O ",
+        "O    OO    OO    OOO",
+        " O  O  O  O  O  O   ",
+    };
+    static const auto monster_position = get_positions(monster, 'O');
+
+    for(auto line = 0U; (line + 2) < sea_picture.size(); ++line) {
+        for(auto start = 0U; (start + monster[0].size()) != sea_picture[line].size(); ++start) {
+            auto top = check_bodypart(sea_picture[line].substr(start, monster[0].size()), monster_position[0]);
+            auto mid = check_bodypart(sea_picture[line + 1].substr(start, monster[1].size()), monster_position[1]);
+            auto bot = check_bodypart(sea_picture[line + 2].substr(start, monster[2].size()), monster_position[2]);
+            if(top && mid && bot) {
+                kill_bodyparts(sea_picture[line], monster_position[0], start);
+                kill_bodyparts(sea_picture[line + 1], monster_position[1], start);
+                kill_bodyparts(sea_picture[line + 2], monster_position[2], start);
+            }
+        }
+    }
 }
 
 uint64_t solve_day20(input_t input_data) {
@@ -291,7 +359,7 @@ uint64_t solve_day20(input_t input_data) {
 
 
     auto current_tile = find_top_left_corner(tiles);
-    assert(2971 == current_tile.get_id());
+    // assert(2971 == current_tile.get_id());
 
     std::vector<std::vector<Tile>> sea_map;
     std::vector<Tile> visited;
@@ -326,20 +394,34 @@ uint64_t solve_day20(input_t input_data) {
     rotate_picture(sea_picture);
     rotate_picture(sea_picture);
 
-    for(auto& line: sea_picture) {
-        line.insert(line.begin() + 8, ' ');
-        line.insert(line.begin() + 17, ' ');
+    uint64_t monster_count = 0;
+    uint64_t enumerate = 0;
+    while(1) {
+        monster_count = find_monster(sea_picture);
+        if(monster_count != 0) {
+            break;
+        }
+        rotate_picture(sea_picture);
+        enumerate++;
+        if(enumerate == 4) {
+            flip_picture(sea_picture);
+        } 
+        if(enumerate == 8) {
+            break;
+        }
     }
+    // assert(2 == monster_count);
 
-    sea_picture.insert(sea_picture.begin() + 8, " ");
-    sea_picture.insert(sea_picture.begin() + 17, " ");
+    kill_the_monsters(sea_picture);
 
+    auto rough_sea_count = 0;
     std::cout << std::endl;
     for(auto line: sea_picture) {
-        std::cout << line << std::endl;
+        for(auto c: line) {
+            if('#' == c) {
+                rough_sea_count++;
+            }
+        }
     }
-
-    uint64_t not_a_monster = 0;
-
-    return not_a_monster;
+    return rough_sea_count;
 }

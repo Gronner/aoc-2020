@@ -51,7 +51,6 @@ uint64_t Tile::fit(const Tile other) {
     }
 
     if(is_fit_right(other)) {
-        std::cout << right_side << " " << other.left_side << std::endl;
         return 2;
     }
 
