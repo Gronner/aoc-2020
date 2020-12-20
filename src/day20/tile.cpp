@@ -11,10 +11,10 @@ Tile::Tile(const std::vector<std::string> tile) : tile_picture(tile) {
     orientation = 0;
     connected_tiles = 0;
     flipped = 0;
-    above = {0, 0, 0};
-    right = {0, 0, 0};
-    below = {0, 0, 0};
-    left = {0, 0, 0};
+    above = 0;
+    right = 0;
+    below = 0;
+    left = 0;
 
     auto tile_width = tile[1].size();
     top_side = tile[1];
@@ -30,16 +30,16 @@ Tile::Tile(const std::vector<std::string> tile) : tile_picture(tile) {
 }
 
 bool Tile::already_linked(const Tile other) const {
-    if(0 != above.size() && above[0] == other.id) {
+    if(0 != above && above == other.id) {
         return true;
     }
-    if(0 != right.size() && right[0] == other.id) {
+    if(0 != right && right == other.id) {
         return true;
     }
-    if(0 != below.size() && below[0] == other.id) {
+    if(0 != below && below == other.id) {
         return true;
     }
-    if(0 != left.size() && left[0] == other.id) {
+    if(0 != left && left == other.id) {
         return true;
     }
     return false;
@@ -75,21 +75,13 @@ bool Tile::is_fit_below(const Tile other) const {
 void Tile::piece_together(Tile other, uint64_t spot) {
     connected_tiles++;
     switch(spot) {
-        case 1: above[0] = other.id;
-                above[1] = other.orientation;
-                above[2] = other.flipped;
+        case 1: above = other.id;
                 break;
-        case 2: right[0] = other.id;
-                right[1] = other.orientation;
-                right[2] = other.flipped;
+        case 2: right = other.id;
                 break;
-        case 3: below[0] = other.id;
-                below[1] = other.orientation;
-                below[2] = other.flipped;
+        case 3: below = other.id;
                 break;
-        case 4: left[0] = other.id;
-                left[1] = other.orientation;
-                left[2] = other.flipped;
+        case 4: left = other.id;
                 break;
         default: return;
     }
@@ -171,7 +163,7 @@ bool Tile::is_top_left() const {
     if(2 != connected_tiles) {
         return false;
     }
-    if(above[0] == 0 && right[0] != 0 && below[0] != 0 && left[0] == 0) {
+    if(above == 0 && right != 0 && below != 0 && left == 0) {
         return true;
     }
     return false;
@@ -181,7 +173,7 @@ bool Tile::is_top_right() const {
     if(2 != connected_tiles) {
         return false;
     }
-    if(above[0] == 0 && right[0] == 0 && below[0] != 0 && left[0] != 0) {
+    if(above == 0 && right == 0 && below != 0 && left != 0) {
         return true;
     }
     return false;
@@ -191,7 +183,7 @@ bool Tile::is_bottom_left() const {
     if(2 != connected_tiles) {
         return false;
     }
-    if(above[0] != 0 && right[0] != 0 && below[0] == 0 && left[0] == 0) {
+    if(above != 0 && right != 0 && below == 0 && left == 0) {
         return true;
     }
     return false;
@@ -201,26 +193,10 @@ bool Tile::is_bottom_right() const {
     if(2 != connected_tiles) {
         return false;
     }
-    if(above[0] != 0 && right[0] == 0 && below[0] == 0 && left[0] != 0) {
+    if(above != 0 && right == 0 && below == 0 && left != 0) {
         return true;
     }
     return false;
-}
-
-uint64_t Tile::get_orientation() const {
-    return orientation;
-}
-
-std::ostream& operator<<(std::ostream& os, const Tile& tile) {
-    os << tile.id << ":" << '\n';
-    for(auto line: tile.tile_picture) {
-        os << line << '\n';
-    }
-    return os;
-}
-
-uint64_t Tile::get_connected_tiles() const {
-    return connected_tiles;
 }
 
 void Tile::strip_sides() {
@@ -233,31 +209,19 @@ void Tile::strip_sides() {
 }
 
 bool Tile::has_tile_below() const {
-    if(below[0] != 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return below != 0;
 }
 
 bool Tile::has_right_tile() const {
-    return right[0] != 0;
+    return right != 0;
 }
 
-std::vector<uint64_t> Tile::get_tile_below() const {
+uint64_t Tile::get_tile_below() const {
     return below;
 }
 
-std::vector<uint64_t> Tile::get_right_tile() const {
+uint64_t Tile::get_right_tile() const {
     return right;
-}
-
-std::vector<uint64_t> Tile::get_tile_above() const {
-    return above;
-}
-
-std::vector<uint64_t> Tile::get_left_tile() const {
-    return left;    
 }
 
 std::vector<std::string> Tile::get_picture() const {
