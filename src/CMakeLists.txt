@@ -31,6 +31,7 @@ set(SOURCES
     day17.cpp
     day18.cpp
     day19.cpp
+    tile.cpp
     day20.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
