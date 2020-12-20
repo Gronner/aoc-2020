@@ -5,6 +5,8 @@
 #include <cassert>
 #include <iostream>
 
+static void print_tile_information(const Tile tile);
+
 static void flip_picture(std::vector<std::string>& picture) {
     for(auto& line: picture) {
         std::reverse(line.begin(), line.end());
@@ -54,6 +56,7 @@ static void connect_tiles(std::vector<Tile>& tiles) {
                     other.rotate();
                 }
                 if(found) {
+                    assert(tile.fit(other));
                     break;
                 }
                 other.flip();
@@ -78,9 +81,7 @@ static Tile find_tile(const std::vector<Tile> tiles, const uint64_t id) {
     return *tile;
 }
 
-#pragma GCC diagnostic ignored "-Wunused-function"
-static void print_tile_information(const std::vector<Tile> tiles, const uint64_t id) {
-    auto tile = find_tile(tiles, id);
+static void print_tile_information(const Tile tile) {
     std::cout << tile.get_id() << " Flipped: " << tile.get_flipped() << " Orientation: " << tile.get_orientation() << std::endl;
     std::cout << "Above: ";
     for(auto i: tile.get_tile_above()) {
@@ -107,6 +108,12 @@ static void print_tile_information(const std::vector<Tile> tiles, const uint64_t
     std::cout << '\n' << std::endl;
 }
 
+#pragma GCC diagnostic ignored "-Wunused-function"
+static void print_tile_information(const std::vector<Tile> tiles, const uint64_t id) {
+    const auto tile = find_tile(tiles, id);
+    print_tile_information(tile);
+}
+
 static Tile find_top_left_corner(const std::vector<Tile> tiles) {
     uint64_t top_left_id = 0;
     for(auto& tile: tiles) {
@@ -120,9 +127,26 @@ static Tile find_top_left_corner(const std::vector<Tile> tiles) {
 static void turn_to_fit(Tile& tile, const uint64_t flipped, const uint64_t orientation) {
     while(flipped != tile.get_flipped()) {
         tile.flip();
+        print_tile_information(tile);
+        std::cout << tile << std::endl;
     }
     while(orientation != tile.get_orientation()) {
         tile.rotate();
+        print_tile_information(tile);
+        std::cout << tile << std::endl;
+    }
+}
+
+static void turn_to_fit(Tile& next, const Tile current, bool right) {
+    auto enumerate = 1U;
+    auto is_fit = right ? current.is_fit_right(next) : current.is_fit_below(next);
+    while(!is_fit) {
+        next.rotate();
+        if(4 == enumerate) {
+            next.flip();
+        }
+        enumerate++;
+        is_fit = right ? current.is_fit_right(next) : current.is_fit_below(next);
     }
 }
 
@@ -135,13 +159,10 @@ static std::vector<Tile> build_longitude(const std::vector<Tile> tiles, Tile cur
         assert(right_tile_info[1] % 90U == 0U && right_tile_info[1] < 360U);
         assert(right_tile_info[2] == 1U || right_tile_info[2] == 0U);
         auto next_tile = find_tile(tiles, right_tile_info[0]);
-        turn_to_fit(next_tile, right_tile_info[2], right_tile_info[1]);
-
-        std::cout << current_tile.get_id() << std::endl;
-        print_tile_information(tiles, current_tile.get_id());
+        //turn_to_fit(next_tile, right_tile_info[2], right_tile_info[1]);
         std::cout << current_tile << std::endl;
-        std::cout << std::endl;
-        std::cout << next_tile<< std::endl;
+        turn_to_fit(next_tile, current_tile, true);
+
         assert(current_tile.is_fit_right(next_tile));
 
         longitude.push_back(next_tile);
@@ -156,6 +177,12 @@ static Tile get_next_tile_below(const std::vector<Tile> tiles, const uint64_t id
     assert(orientation % 90U == 0U && orientation < 360U);
     auto next_tile = find_tile(tiles, id);
     turn_to_fit(next_tile, flipped, orientation);
+    return next_tile;
+}
+
+static Tile get_next_tile_below(const std::vector<Tile> tiles, uint64_t id, Tile current_tile) {
+    auto next_tile = find_tile(tiles, id);
+    turn_to_fit(next_tile, current_tile, false);
     return next_tile;
 }
 
@@ -234,6 +261,7 @@ static void kill_the_monsters(std::vector<std::string>& sea_picture) {
 }
 
 uint64_t solve_day20(input_t input_data) {
+    /*
     input_data = {
         "Tile 2311:",
         "..##.#..#.",
@@ -344,13 +372,14 @@ uint64_t solve_day20(input_t input_data) {
         "..#.###...",
         "",
     };
+    */
     auto tiles = parse_tiles(input_data);
     connect_tiles(tiles);
     const auto product = compute_corner_product(tiles);
 
 
-    assert(20899048083289 == product);
-    // assert(20033377297069 == product);
+    // assert(20899048083289 == product);
+    assert(20033377297069 == product);
     std::cout << "\nPart 1 finished\n" << std::endl;
     
     for(auto& tile: tiles) {
@@ -370,8 +399,7 @@ uint64_t solve_day20(input_t input_data) {
 
         auto next_tile_below = get_next_tile_below(tiles,
                                                    next_tile_below_information[0],
-                                                   next_tile_below_information[2],
-                                                   next_tile_below_information[1]);
+                                                   current_tile);
         assert(current_tile.is_fit_below(next_tile_below));
         current_tile = next_tile_below;
     }
