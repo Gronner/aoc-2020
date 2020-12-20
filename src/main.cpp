@@ -95,6 +95,11 @@ static void day19() {
     std::cout << "Day19: " << monster_messages(input_data) << std::endl;
 }
 
+static void day20() {
+    auto input_data = aoc::read_input_linewise(day20_data);
+    std::cout << "Day20: " << solve_day20(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -115,5 +120,6 @@ int main() {
     day17();
     day18();
     day19();
+    day20();
     return 0;
 }
