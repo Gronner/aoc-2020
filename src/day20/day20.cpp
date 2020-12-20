@@ -1,6 +1,6 @@
 #include "days.hpp"
 
-#include "tile.hpp"
+#include "day20/tile.hpp"
 
 #include <cassert>
 #include <iostream>
