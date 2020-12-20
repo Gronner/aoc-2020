@@ -5,7 +5,7 @@
 #include <cassert>
 
 
-Tile::Tile(std::vector<std::string> tile) : tile_picture(tile) {
+Tile::Tile(const std::vector<std::string> tile) : tile_picture(tile) {
     tile_picture = std::vector<std::string>(tile.begin() + 1, tile.end());
     id = std::stoll(aoc::grab_information(tile[0], "Tile (\\d{4}):")[1]);
     orientation = 0;
@@ -45,16 +45,16 @@ bool Tile::already_linked(const Tile other) const {
     return false;
 }
 
-uint64_t Tile::fit(Tile other) {
+uint64_t Tile::fit(const Tile other) {
     if(top_side == other.bottom_side) {
         return 1;
     }
 
-    if(right_side == other.left_side) {
+    if(is_fit_right(other)) {
         return 2;
     }
 
-    if(bottom_side == other.top_side) {
+    if(is_fit_below(other)) {
         return 3;
     }
 
@@ -62,6 +62,14 @@ uint64_t Tile::fit(Tile other) {
         return 4;
     }
     return 0;
+}
+
+bool Tile::is_fit_right(const Tile other) const {
+    return right_side == other.left_side;
+}
+
+bool Tile::is_fit_below(const Tile other) const {
+    return bottom_side == other.top_side;
 }
 
 void Tile::piece_together(Tile other, uint64_t spot) {
@@ -120,9 +128,6 @@ void Tile::flip_picture() {
     for(auto& line: tile_picture) {
         std::reverse(line.begin(), line.end());
     }
-    auto tmp_right = right;
-    right = left;
-    left = right;
 }
 
 void Tile::flip() {
@@ -137,6 +142,10 @@ void Tile::flip() {
     right_side = left_side;
     left_side = tmp;
     std::reverse(bottom_side.begin(), bottom_side.end());
+    auto tmp_right = right;
+    right = left;
+    left = tmp_right;
+    flip_picture();
 }
 
 uint64_t Tile::get_id() const {
@@ -225,11 +234,7 @@ bool Tile::has_tile_below() const {
 }
 
 bool Tile::has_right_tile() const {
-    if(right[0] != 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return right[0] != 0;
 }
 
 std::vector<uint64_t> Tile::get_tile_below() const {

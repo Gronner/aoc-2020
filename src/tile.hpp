@@ -24,10 +24,12 @@ class Tile {
         void rotate_picture();
         void flip_picture();
     public:
-        Tile(std::vector<std::string> tile);
+        Tile(const std::vector<std::string> tile);
         void rotate();
         void flip();
-        uint64_t fit(Tile other);
+        uint64_t fit(const Tile other);
+        bool is_fit_right(const Tile other) const;
+        bool is_fit_below(const Tile other) const;
         void piece_together(Tile other, uint64_t spot);
         uint64_t get_id() const;
         uint64_t get_orientation() const;
