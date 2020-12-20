@@ -136,22 +136,18 @@ uint64_t solve_day20(input_t input_data) {
             if(tile.already_linked(other)) {
                 continue;
             }
-            std::cout << tile.get_id() << " + " << other.get_id() << std::endl;
             for(auto j = 0; j < 2; ++j) {
                 auto found = false;
                 for(auto i = 0; i < 4; ++i) {
                     if(tile.orient_edges(other)) {
-                        std::cout << "Fit" << std::endl;
                         found = true;
                         break;
                     }
-                    std::cout << "Rotate" << std::endl;
                     other.rotate();
                 }
                 if(found) {
                     break;
                 }
-                std::cout << "Flip" << std::endl;
                 other.flip();
             }
         }
@@ -160,7 +156,6 @@ uint64_t solve_day20(input_t input_data) {
     uint64_t product = 1;
     for(auto tile: tiles) {
         if(2 == tile.get_connected_tiles()) {
-            std::cout << tile.get_id() << std::endl;
             product *= tile.get_id();
         }
     }
