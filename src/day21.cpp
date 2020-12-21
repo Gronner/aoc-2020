@@ -8,7 +8,6 @@
 #include <set>
 
 uint64_t solve_day21(input_t input_data) {
-    std::cout << std::endl;
     std::map<std::string, std::set<std::string>> all_allergens;
     std::vector<std::string> all_ingredients;
     for(auto line: input_data) {
@@ -61,7 +60,6 @@ uint64_t solve_day21(input_t input_data) {
         }
     }
 
-    std::cout << std::endl;
     for(auto c_allergen: all_allergens) {
         for(auto i: c_allergen.second) {
             std::cout << i << ",";
