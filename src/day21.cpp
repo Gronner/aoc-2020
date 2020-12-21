@@ -3,18 +3,13 @@
 #include "parsing.hpp"
 
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <map>
 #include <set>
 
 uint64_t solve_day21(input_t input_data) {
     std::cout << std::endl;
-    input_data = {
-        "mxmxvkd kfcds sqjhc nhms (contains dairy, fish)",
-        "trh fvjkl sbzzf mxmxvkd (contains dairy)",
-        "sqjhc fvjkl (contains soy)",
-        "sqjhc mxmxvkd sbzzf (contains fish)",
-    };
     std::map<std::string, std::set<std::string>> all_allergens;
     std::vector<std::string> all_ingredients;
     for(auto line: input_data) {
@@ -47,12 +42,33 @@ uint64_t solve_day21(input_t input_data) {
         }
     }
 
-    for(auto allergens: all_allergens) {
-        std::cout << allergens.first << ": ";
-        for(auto pos_ing: allergens.second) {
-            std::cout << pos_ing << " ";
+    bool all_solo = false;
+    while(!all_solo) {
+        for(auto c_allergen: all_allergens) {
+            if(c_allergen.second.size() == 1) {
+                for(auto& allergen: all_allergens) {
+                    if(c_allergen.first == allergen.first) {
+                        continue;
+                    }
+                    auto found = std::find(allergen.second.begin(), allergen.second.end(), *c_allergen.second.begin());
+                    if(found != allergen.second.end()) {
+                        allergen.second.erase(found);
+                    }
+                }
+                all_solo = true;
+            } else {
+                all_solo = false;
+            }
         }
-        std::cout << std::endl;
     }
+
+    std::cout << std::endl;
+    for(auto c_allergen: all_allergens) {
+        for(auto i: c_allergen.second) {
+            std::cout << i << ",";
+        }
+    }
+    std::cout << std::endl;
+
     return result;
 }
