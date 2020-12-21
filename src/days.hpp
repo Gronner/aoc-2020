@@ -27,3 +27,4 @@ uint64_t conways_cubes(input_t input_data);
 uint64_t homework(input_t input_data);
 uint64_t monster_messages(const input_t input_data);
 uint64_t solve_day20(input_t input_data);
+uint64_t solve_day21(input_t input_data);

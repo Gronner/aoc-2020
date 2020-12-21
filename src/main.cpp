@@ -100,6 +100,11 @@ static void day20() {
     std::cout << "Day20: " << solve_day20(input_data) << std::endl;
 }
 
+static void day21() {
+    auto input_data = aoc::read_input_linewise(day21_data);
+    std::cout << "Day21: " << solve_day21(input_data) << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -121,5 +126,6 @@ int main() {
     day18();
     day19();
     day20();
+    day21();
     return 0;
 }
