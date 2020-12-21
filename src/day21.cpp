@@ -3,7 +3,6 @@
 #include "parsing.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iostream>
 #include <map>
 #include <set>
