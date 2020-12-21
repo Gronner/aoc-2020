@@ -1,44 +1,48 @@
-import regex
 import functools
+import regex
+
+PARSED_RULES = {}
 
 def prepare_input(data):
     rules, data = data.split('\n\n')
     rules = rules.split('\n')
     data = data.split('\n')
     for rule in rules:
-        a, b = rule.split(': ')
-        parsed_rules[int(a)] = b
+        rule_id, rule_equation = rule.split(': ')
+        PARSED_RULES[int(rule_id)] = rule_equation
 
-    parsed_rules[8] = '42 | 42 8'
-    parsed_rules[11] = '42 31 | 42 11 31'
+    PARSED_RULES[8] = '42 | 42 8'
+    PARSED_RULES[11] = '42 31 | 42 11 31'
 
-    return parsed_rules, data
+    return PARSED_RULES, data
 
-parsed_rules = {}
 @functools.lru_cache(None)
 def recurse_rules(r_idx):
-    global parsed_rules
+    global PARSED_RULES
     if r_idx == 8:
         return '(' + recurse_rules(42) + '+' + ')'
     if r_idx == 11:
-        return '(?P<Rule11>%s(?P&Rule11)%s|%s%s)' % (recurse_rules(42), recurse_rules(31), recurse_rules(42), recurse_rules(31))
-    if '"' in parsed_rules[r_idx]:
-        tmp = parsed_rules[r_idx].replace('"', '')
+        return '(?P<Rule11>%s(?P&Rule11)%s|%s%s)' % (recurse_rules(42),
+                                                     recurse_rules(31),
+                                                     recurse_rules(42),
+                                                     recurse_rules(31))
+    if '"' in PARSED_RULES[r_idx]:
+        tmp = PARSED_RULES[r_idx].replace('"', '')
         return '(' + tmp + ')'
     res = []
-    for chunk in parsed_rules[r_idx].split(' | '):
-        x = ''.join(recurse_rules(int(c)) for c in chunk.split())
-        res.append(x)
+    for side in PARSED_RULES[r_idx].split(' | '):
+        tmp = ''.join(recurse_rules(int(c)) for c in side.split())
+        res.append(tmp)
     return '(' + '|'.join(res) + ')'
 
 
 def monster_message():
-    global parsed_rules
+    global PARSED_RULES
 
-    with open("../data/day19.txt", 'r') as f:
-        data = f.read()
-    parsed_rules, data = prepare_input(data)
-    new_rule  = recurse_rules(0)
+    with open("../data/day19.txt", 'r') as input_file:
+        data = input_file.read()
+    PARSED_RULES, data = prepare_input(data)
+    new_rule = recurse_rules(0)
     count = 0
     for datum in data:
         count += regex.fullmatch(new_rule, datum) is not None
@@ -47,4 +51,3 @@ def monster_message():
 
 if __name__ == "__main__":
     monster_message()
-
