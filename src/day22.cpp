@@ -12,46 +12,72 @@ using deck_t = std::vector<uint64_t>;
 
 std::vector<deck_t> player1_deck_history;
 std::vector<deck_t> player2_deck_history;
+static uint64_t round = 1;
+static uint64_t game = 1;
 
-bool recursive_combat(deck_t player1_deck, deck_t player2_deck) {
+static bool recursive_combat(deck_t& player1_deck, deck_t& player2_deck);
+
+static bool next_game(deck_t& winner_deck, deck_t& loser_deck, uint64_t winner_card, uint64_t loser_card, bool winner) {
+    winner_deck.push_back(winner_card);
+    winner_deck.push_back(loser_card);
+    if(winner) {
+        return recursive_combat(winner_deck, loser_deck);
+    } else {
+        return recursive_combat(loser_deck, winner_deck);
+    }
+}
+
+static bool recursive_combat(deck_t& player1_deck, deck_t& player2_deck) {
+    round++;
+    if(player1_deck_history.end() != std::find(player1_deck_history.begin(), player1_deck_history.end(), player1_deck)) {
+        if(player1_deck_history.end() != std::find(player1_deck_history.begin(), player1_deck_history.end(), player1_deck)) {
+            return true;
+        }
+    }
+
     player1_deck_history.push_back(player1_deck);
     player2_deck_history.push_back(player2_deck);
 
-    auto player1_card = pop_front(player1_deck);
-    auto player2_card = pop_front(player2_deck);
-    if(player1_card >= player1_deck.size() && player2_card >= player2_deck.size()) {
-        auto winner = recursive_combat(player1_deck, player2_deck);
-        if(winner) {
-            player1_deck.push_back(player1_card);
-            player1_deck.push_back(player2_card);
-        } else {
-            player2_deck.push_back(player1_card);
-            player2_deck.push_back(player2_card);
-        }
-    } else {
-        return player1_card > player2_card;
+    if(0 == player1_deck.size() || 0 == player2_deck.size()) {
+        return 0 != player1_deck.size() ? true : false;
     }
 
-    if(player1_deck_history.end() != std::find(player1_deck_history.begin(), player1_deck_history.end(), player1_deck)) {
-        return true;
+    auto player1_card = pop_front(player1_deck);
+    auto player2_card = pop_front(player2_deck);
+    if(player1_card <= player1_deck.size() && player2_card <= player2_deck.size()) {
+        game++;
+        auto tmp_round = round;
+        round = 1;
+        auto prev_history_player1 = player1_deck_history;
+        player1_deck_history.clear();
+        auto prev_history_player2 = player2_deck_history;
+        player2_deck_history.clear();
+
+        deck_t tmp_player1_deck(player1_deck.begin(), player1_deck.begin() + player1_card);
+        deck_t tmp_player2_deck(player2_deck.begin(), player2_deck.begin() + player2_card);
+        auto winner = recursive_combat(tmp_player1_deck, tmp_player2_deck);
+
+        player1_deck_history = prev_history_player1;
+        player2_deck_history = prev_history_player2;
+        round = tmp_round;
+        game--;
+        if(winner) {
+            return next_game(player1_deck, player2_deck, player1_card, player2_card, winner);
+        } else {
+            return next_game(player2_deck, player1_deck, player2_card, player1_card, winner);
+        }
+    } else {
+        auto winner = player1_card > player2_card;
+        if(winner) {
+            return next_game(player1_deck, player2_deck, player1_card, player2_card, winner);
+        } else {
+            return next_game(player2_deck, player1_deck, player2_card, player1_card, winner);
+        }
     }
-    if(player1_deck_history.end() != std::find(player1_deck_history.begin(), player1_deck_history.end(), player1_deck)) {
-        return true;
-    }
-    return false;
+
 }
 
 uint64_t solve_day22(input_t input_data) {
-    input_data = {
-        "Player 1:",
-        "43",
-        "19",
-        "",
-        "Player 2:",
-        "2",
-        "29",
-        "14",
-    };
     std::vector<uint64_t> player1_deck;
     std::vector<uint64_t> player2_deck;
     bool second_player = false;
@@ -70,19 +96,8 @@ uint64_t solve_day22(input_t input_data) {
         }
     }
 
-    while(player1_deck.size() != 0 && player2_deck.size() != 0) {
-        auto player1_card = pop_front(player1_deck);
-        auto player2_card = pop_front(player2_deck);
-        if(player1_card > player2_card) {
-            player1_deck.push_back(player1_card);
-            player1_deck.push_back(player2_card);
-        } else {
-            player2_deck.push_back(player2_card);
-            player2_deck.push_back(player1_card);
-        }
-    }
-        std::cout << player1_deck.size() << " " << player2_deck.size() << std::endl;
-    auto winner_deck = player1_deck.size() !=0 ? player1_deck : player2_deck;
+    auto winner = recursive_combat(player1_deck, player2_deck);
+    auto winner_deck = winner ? player1_deck : player2_deck;
 
     auto enumerate = 1;
     auto sum = 0;
