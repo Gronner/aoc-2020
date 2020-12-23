@@ -2,6 +2,7 @@
 
 #include "day20/tile.hpp"
 
+#include <algorithm>
 #include <cassert>
 
 static void flip_picture(std::vector<std::string>& picture) {

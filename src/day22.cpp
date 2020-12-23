@@ -1,5 +1,6 @@
 #include "days.hpp"
 
+#include <algorithm>
 #include <iostream>
 
 uint64_t pop_front(std::vector<uint64_t>& deck) {

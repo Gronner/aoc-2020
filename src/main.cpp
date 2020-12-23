@@ -110,6 +110,10 @@ static void day22() {
     std::cout << "Day22: " << solve_day22(input_data) << std::endl;
 }
 
+static void day23() {
+    std::cout << "Day23: " << solve_day23() << std::endl;
+}
+
 int main() {
     day1();
     day2();
@@ -133,5 +137,6 @@ int main() {
     day20();
     day21();
     day22();
+    day23();
     return 0;
 }
