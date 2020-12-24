@@ -2,6 +2,8 @@
 
 #include <cassert>
 
+// Tiles are implemented as hexagonal cube coordinates: https://www.redblobgames.com/grids/hexagons/#coordinates
+
 FloorTile::FloorTile(std::vector<int64_t> coordinates) : color(false), coordinates(coordinates) {
     assert(coordinates[0] + coordinates[1] + coordinates[2] == 0);
 }
