@@ -35,7 +35,9 @@ set(SOURCES
     day20/day20.cpp
     day21.cpp
     day22.cpp
-    day23_alt.cpp)
+    day23_alt.cpp
+    day24/floor_tile.cpp
+    day24/day24.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})
