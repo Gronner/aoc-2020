@@ -11,3 +11,5 @@ class EncryptionBreaker {
         uint64_t compute_key(const uint64_t start_value) const;
         void up_loop_number();
 };
+
+uint64_t transform(uint64_t value, const uint64_t subject_number=7);
