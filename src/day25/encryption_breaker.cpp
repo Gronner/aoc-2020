@@ -1,7 +1,5 @@
 #include "day25/encryption_breaker.hpp"
 
-#include <iostream>
-
 EncryptionBreaker::EncryptionBreaker(uint64_t loop_number) 
     : loop_number(loop_number) {}
 

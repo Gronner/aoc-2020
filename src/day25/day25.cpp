@@ -1,7 +1,6 @@
 #include "days.hpp"
 
 #include <cassert>
-#include <iostream>
 
 uint64_t solve_day25() {
     const uint64_t card_pub = 11239946;
