@@ -1,7 +1,7 @@
 set(BINARY ${CMAKE_PROJECT_NAME})
 
 set(CMAKE_CXX_FLAGS "-std=c++20")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wpedantic -Werror -fconstexpr-loop-limit=30000001 -fconstexpr-ops-limit=9000000000 -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Werror -fconstexpr-loop-limit=30000001 -fconstexpr-ops-limit=9000000000 -O3")
 
 set(SOURCES
     main.cpp
@@ -37,7 +37,9 @@ set(SOURCES
     day22.cpp
     day23_alt.cpp
     day24/floor_tile.cpp
-    day24/day24.cpp)
+    day24/day24.cpp
+    day25/encryption_breaker.cpp
+    day25/day25.cpp)
 
 add_executable(${BINARY}_run ${SOURCES})
 add_library(${BINARY} STATIC ${SOURCES})
