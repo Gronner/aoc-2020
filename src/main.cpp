@@ -124,31 +124,118 @@ static void day25() {
     std::cout << "Day25: " << solve_day25() << std::endl;
 }
 
-int main() {
-    day1();
-    day2();
-    day3();
-    day4();
-    day5();
-    day6();
-    day7();
-    day8();
-    day9();
-    day10();
-    day11();
-    day12();
-    day13();
-    day14();
-    day15();
-    day16();
-    day17();
-    day18();
-    day19();
-    day20();
-    day21();
-    day22();
-    day23();
-    day24();
-    day25();
+int main(int argc, char* argv[]) {
+    if(2 < argc) {
+        std::cout << argc << std::endl;
+        std::cout << "[EE] To many arguments. Either pass none to run all days or the day's number to run a specific day." << std::endl;
+        return -1;
+    }
+    auto day = 0;
+    if(2 == argc) {
+        day = std::stoll(argv[1]);
+    }
+    switch(day) {
+        default:
+        case 1: day1();
+                if(2 == argc) {
+                    break;
+                }
+        case 2: day2();
+                if(2 == argc) {
+                    break;
+                }
+        case 3: day3();
+                if(2 == argc) {
+                    break;
+                }
+        case 4: day4();
+                if(2 == argc) {
+                    break;
+                }
+        case 5: day5();
+                if(2 == argc) {
+                    break;
+                }
+        case 6: day6();
+                if(2 == argc) {
+                    break;
+                }
+        case 7: day7();
+                if(2 == argc) {
+                    break;
+                }
+        case 8: day8();
+                if(2 == argc) {
+                    break;
+                }
+        case 9: day9();
+                if(2 == argc) {
+                    break;
+                }
+        case 10: day10();
+                if(2 == argc) {
+                    break;
+                }
+        case 11: day11();
+                if(2 == argc) {
+                    break;
+                }
+        case 12: day12();
+                if(2 == argc) {
+                    break;
+                }
+        case 13: day13();
+                if(2 == argc) {
+                    break;
+                }
+        case 14: day14();
+                if(2 == argc) {
+                    break;
+                }
+        case 15: day15();
+                if(2 == argc) {
+                    break;
+                }
+        case 16: day16();
+                if(2 == argc) {
+                    break;
+                }
+        case 17: day17();
+                if(2 == argc) {
+                    break;
+                }
+        case 18: day18();
+                if(2 == argc) {
+                    break;
+                }
+        case 19: day19();
+                if(2 == argc) {
+                    break;
+                }
+        case 20: day20();
+                if(2 == argc) {
+                    break;
+                }
+        case 21: day21();
+                if(2 == argc) {
+                    break;
+                }
+        case 22: day22();
+                if(2 == argc) {
+                    break;
+                }
+        case 23: day23();
+                if(2 == argc) {
+                    break;
+                }
+        case 24: day24();
+                if(2 == argc) {
+                    break;
+                }
+        case 25: day25();
+                if(2 == argc) {
+                    break;
+                }
+    }
     return 0;
 }
