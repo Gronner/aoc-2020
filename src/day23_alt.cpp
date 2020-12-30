@@ -3,16 +3,14 @@
 #include <algorithm>
 #include <execution>
 #include <string>
-#include <iostream>
-#include <map>
+#include <unordered_map>
 
-constexpr uint64_t MAX_ROUNDS = 10'000'000;
-
-using cups_t = std::map<uint64_t, uint64_t>;
-
-static std::vector<uint64_t> taken = {0, 0, 0};
+using cups_t = std::unordered_map<uint64_t, uint64_t>;
 
 uint64_t solve_day23() {
+    constexpr uint64_t MAX_ROUNDS = 10'000'000;
+    std::vector<uint64_t> taken = {0, 0, 0};
+
     cups_t cups;
     cups.insert(std::make_pair(7, 1));
     cups.insert(std::make_pair(1, 6));
@@ -39,14 +37,14 @@ uint64_t solve_day23() {
         cups[current_cup] = cups[taken[2]];
 
         // Get destination
-        const auto smallest_cup = (*cups.begin()).first;
-        const auto biggest_cup = (*cups.rbegin()).first;
+        const auto smallest_cup = 1ULL;
+        const auto biggest_cup = 1'000'000ULL;
 
         uint64_t next_cup_label = current_cup - 1;
         if((smallest_cup - 1) == next_cup_label) {
             next_cup_label = biggest_cup;
         }
-        while(taken.end() != std::find(taken.begin(), taken.end(), next_cup_label)) {
+        while(taken.end() != std::find(taken.cbegin(), taken.cend(), next_cup_label)) {
             next_cup_label--;
             if(0 == next_cup_label) {
                 next_cup_label = biggest_cup;
