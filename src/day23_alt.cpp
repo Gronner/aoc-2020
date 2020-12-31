@@ -1,32 +1,29 @@
 #include "days.hpp"
 
 #include <algorithm>
-#include <execution>
 #include <string>
-#include <unordered_map>
-
-using cups_t = std::unordered_map<uint64_t, uint64_t>;
 
 uint64_t solve_day23() {
     constexpr uint64_t MAX_ROUNDS = 10'000'000;
     std::vector<uint64_t> taken = {0, 0, 0};
 
-    cups_t cups;
-    cups.insert(std::make_pair(7, 1));
-    cups.insert(std::make_pair(1, 6));
-    cups.insert(std::make_pair(6, 8));
-    cups.insert(std::make_pair(8, 9));
-    cups.insert(std::make_pair(9, 2));
-    cups.insert(std::make_pair(2, 5));
-    cups.insert(std::make_pair(5, 4));
-    cups.insert(std::make_pair(4, 3));
-    cups.insert(std::make_pair(3, 10));
-    auto current_insertion = 10;
+    uint64_t cups[1'000'000]; // = {0, 6, 5, 10, 3, 4, 8, 1, 9, 2};
+    cups[0] = 0;
+    cups[1] = 6;
+    cups[2] = 5;
+    cups[3] = 10;
+    cups[4] = 3;
+    cups[5] = 4;
+    cups[6] = 8;
+    cups[7] = 1;
+    cups[8] = 9;
+    cups[9] = 2;
+    auto current_insertion = 10ULL;
     for(uint64_t i = 11; i < 1'000'001; ++i) {
-        cups.insert(std::make_pair(current_insertion, i));
+        cups[current_insertion] = i;
         current_insertion = i;
     }
-    cups.insert(std::make_pair(current_insertion, 7));
+    cups[current_insertion] = 7ULL;
 
     auto current_cup = 7;
     for(uint64_t round = 0; round < MAX_ROUNDS; ++round) {
@@ -37,8 +34,8 @@ uint64_t solve_day23() {
         cups[current_cup] = cups[taken[2]];
 
         // Get destination
-        const auto smallest_cup = 1ULL;
-        const auto biggest_cup = 1'000'000ULL;
+        const auto smallest_cup = 1;
+        const auto biggest_cup = 1'000'000;
 
         uint64_t next_cup_label = current_cup - 1;
         if((smallest_cup - 1) == next_cup_label) {
