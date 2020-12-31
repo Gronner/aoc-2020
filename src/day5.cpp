@@ -49,7 +49,7 @@ static unsigned int identify_empty_seat(std::vector<unsigned int> taken_seats) {
 }
 
 unsigned int binary_seat_search(const std::vector<std::string> input_data) {
-    constexpr PlaneLayout santas_plane = {.row_path_len=7, .column_path_len=3};
+    constexpr PlaneLayout santas_plane = {7, 3};
 
     std::vector<unsigned int> found_seats;
     for(auto boarding_pass: input_data) {

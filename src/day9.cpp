@@ -18,7 +18,7 @@ static bool sum_of_parts(uint64_t current_value, std::vector<uint64_t> ring_puff
     return false;
 }
 
-std::pair<uint64_t, auto> xmas_breaker(input_t input_data, uint32_t ring_length) {
+std::pair<uint64_t, uint64_t> xmas_breaker(input_t input_data, uint32_t ring_length) {
     auto input_pos = input_data.cbegin();
     
     std::vector<uint64_t> ring_puffer;

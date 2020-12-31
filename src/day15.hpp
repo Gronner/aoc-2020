@@ -13,7 +13,7 @@ constexpr uint64_t memory_cards(const uint64_t rounds) {
     auto turns = 7ULL;
     uint64_t last_number = 5;
     while(turns != (rounds + 1)) {
-        uint64_t new_number;
+        uint64_t new_number = 0;
         if(0 == numbers_turns[last_number]) {
             new_number = 0;
         } else {

@@ -22,8 +22,8 @@ class Ship {
         void turn(const NavigationCommand);
         void move(const NavigationCommand);
     public:
-        Ship(Position position=Position(0,0));
+        Ship(Position position=Position{0,0});
         void navigate(const NavigationCommand command);
         void drive(const NavigationCommand command);
-        uint32_t traveled_distance(Position starting_point=Position(0,0)) const;
+        uint32_t traveled_distance(Position starting_point=Position{0,0}) const;
 };

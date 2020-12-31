@@ -4,7 +4,7 @@
 #include <cmath>
 
 Ship::Ship(Position starting_position) : position(starting_position){
-    waypoint = Position(10, 1);
+    waypoint = Position{10, 1};
     direction = 'E';
 }
 
@@ -56,7 +56,7 @@ void Ship::move_waypoint(const NavigationCommand command) {
 
 void Ship::drive(const NavigationCommand command) {
     switch(command.argument) {
-        case 'F': move(NavigationCommand(direction, command.value));
+        case 'F': move(NavigationCommand{direction, command.value});
                   break;
         case 'L':
         case 'R': turn(command);
