@@ -5,9 +5,9 @@
 
 uint64_t solve_day23() {
     constexpr uint64_t MAX_ROUNDS = 10'000'000;
-    std::vector<uint64_t> taken = {0, 0, 0};
+    std::array<uint64_t, 3> taken = {0, 0, 0};
 
-    uint64_t cups[1'000'000]; // = {0, 6, 5, 10, 3, 4, 8, 1, 9, 2};
+    std::array<uint64_t, 1'000'000> cups;
     cups[0] = 0;
     cups[1] = 6;
     cups[2] = 5;
