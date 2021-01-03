@@ -34,8 +34,8 @@ uint64_t solve_day23() {
         cups[current_cup] = cups[taken[2]];
 
         // Get destination
-        const auto smallest_cup = 1;
-        const auto biggest_cup = 1'000'000;
+        static constexpr auto smallest_cup = 1ULL;
+        static constexpr auto biggest_cup = 1'000'000ULL;
 
         uint64_t next_cup_label = current_cup - 1;
         if((smallest_cup - 1) == next_cup_label) {
